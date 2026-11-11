@@ -9,8 +9,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--light); color: #333; padding-bottom: 50px; }
         
-        header { background: var(--dark); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .logo h1 { font-size: 1.8rem; font-weight: bold; }
+        /* هدر اصلاح شد تا متن دیده بشه */
+        header { background: var(--dark); color: white; padding: 20px 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: block; }
+        .logo h1 { font-size: 1.6rem; font-weight: bold; color: #ffffff; margin: 0; }
         .logo span { color: #ffb703; }
         
         .hero { width: 100%; max-width: 800px; margin: 20px auto; padding: 0 15px; text-align: center; }
@@ -25,8 +26,8 @@
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
         
-        /* استایل عکس غذا */
-        .card img { width: 100%; height: 180px; object-fit: cover; background: #ddd; color: #333; text-align: center; font-size: 0.8rem; padding-top: 80px; }
+        /* استایل عکس غذا: اگر لود نشد یک پس زمینه خاکستری با اسم غذا نمایش داده میشه */
+        .card img { width: 100%; height: 180px; object-fit: cover; background: #e0e0e0; color: #555; text-align: center; line-height: 180px; font-size: 1rem; font-weight: bold; }
         
         .card-content { padding: 15px; display: flex; flex-direction: column; flex: 1; }
         .card-title { font-size: 1.1rem; font-weight: bold; color: var(--dark); margin-bottom: 8px; }
@@ -47,7 +48,7 @@
         </div>
     </header>
 
-    <!-- عکس ماهی (لینک موقت تلگرام) -->
+    <!-- عکس ماهی -->
     <div class="hero">
         <img src="https://linkgostarbot.ir/bot/download/4878209/6523321285/Screenshot_2026_11_11_14_48_16_913_com_miui_gallery.jpg" alt="ماهی تازه">
     </div>
@@ -61,28 +62,28 @@
     <div class="grid-container" id="foodContainer"></div>
 
     <script>
-        // لیست ۲۰ غذای محبوب با عکس‌های مستقیم از ویکی‌پدیا (بدون فیلتر و با لود بسیار سریع)
+        // لیست ۲۰ غذا با عکس‌های باز و بدون فیلتر از سرور Pexels
         var foods = [
-            { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Chelow_Kabab.jpg/800px-Chelow_Kabab.jpg" },
-            { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Joojeh_Kabab.jpg/800px-Joojeh_Kabab.jpg" },
-            { n: "قورمه سبزی", d: "خورش قورمه سبزی مجلسی با گوشت گوساله", p: "۲۵۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Ghormeh_Sabzi.jpg/800px-Ghormeh_Sabzi.jpg" },
-            { n: "خورش فسنجان", d: "خورش فسنجان با مرغ و گردو", p: "۲۸۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Fesenjan.jpg/800px-Fesenjan.jpg" },
-            { n: "قیمه نثار", d: "خورش قیمه با خلال سیب‌زمینی و بادام", p: "۲۶۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Gheymeh.jpg/800px-Gheymeh.jpg" },
-            { n: "زرشک پلو با مرغ", d: "ران مرغ زعفرانی با زرشک", p: "۲۴۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Zereshk_Polo_ba_Morgh.jpg/800px-Zereshk_Polo_ba_Morgh.jpg" },
-            { n: "باقالی پلو با ماهیچه", d: "ماهیچه گوسفندی با باقالی پلو", p: "۴۸۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Baghali_Polo.jpg/800px-Baghali_Polo.jpg" },
-            { n: "میرزاقاسمی", d: "بادمجان کبابی با گوجه و سیر", p: "۱۶۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mirza_Ghasemi.jpg/800px-Mirza_Ghasemi.jpg" },
-            { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Kashk-e_Bademjan.jpg/800px-Kashk-e_Bademjan.jpg" },
-            { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ash_Reshteh.jpg/800px-Ash_Reshteh.jpg" },
-            { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Dizi.jpg/800px-Dizi.jpg" },
-            { n: "کوکو سبزی", d: "کوکو سبزی با نان و ماست", p: "۱۴۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Kuku_Sabzi.jpg/800px-Kuku_Sabzi.jpg" },
-            { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/800px-Eq_it-na_pizza-margherita_sep2005_sml.jpg" },
-            { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Cheeseburger.jpg/800px-Cheeseburger.jpg" },
-            { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/French_fries_-_serving_suggestion.jpg/800px-French_fries_-_serving_suggestion.jpg" },
-            { n: "سالاد شیرازی", d: "خیار، گوجه، پیاز و آبغوره", p: "۶۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Salad_Shirazi.jpg/800px-Salad_Shirazi.jpg" },
-            { n: "دوغ محلی", d: "دوغ گازدار سنتی", p: "۴۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Doogh.jpg/800px-Doogh.jpg" },
-            { n: "نوشابه کوکاکولا", d: "نوشابه مشکی خنک", p: "۳۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/800px-Coca-Cola_logo.svg.png" },
-            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bastani_Sonati.jpg/800px-Bastani_Sonati.jpg" },
-            { n: "کیک شکلاتی", d: "کیک با سس شکلات", p: "۱۲۰,۰۰۰", i: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chocolate_cake.jpg/800px-Chocolate_cake.jpg" }
+            { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.pexels.com/photos/1105325/pexels-photo-1105325.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "قورمه سبزی", d: "خورش قورمه سبزی مجلسی با گوشت گوساله", p: "۲۵۰,۰۰۰", i: "https://images.pexels.com/photos/5737463/pexels-photo-5737463.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "خورش فسنجان", d: "خورش فسنجان با مرغ و گردو", p: "۲۸۰,۰۰۰", i: "https://images.pexels.com/photos/6210959/pexels-photo-6210959.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "قیمه نثار", d: "خورش قیمه با خلال سیب‌زمینی و بادام", p: "۲۶۰,۰۰۰", i: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "زرشک پلو با مرغ", d: "ران مرغ زعفرانی با زرشک", p: "۲۴۰,۰۰۰", i: "https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "باقالی پلو با ماهیچه", d: "ماهیچه گوسفندی با باقالی پلو", p: "۴۸۰,۰۰۰", i: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "میرزاقاسمی", d: "بادمجان کبابی با گوجه و سیر", p: "۱۶۰,۰۰۰", i: "https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://images.pexels.com/photos/5410400/pexels-photo-5410400.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://images.pexels.com/photos/5409751/pexels-photo-5409751.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://images.pexels.com/photos/6210959/pexels-photo-6210959.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "کوکو سبزی", d: "کوکو سبزی با نان و ماست", p: "۱۴۰,۰۰۰", i: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "سالاد شیرازی", d: "خیار، گوجه، پیاز و آبغوره", p: "۶۰,۰۰۰", i: "https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "دوغ محلی", d: "دوغ گازدار سنتی", p: "۴۰,۰۰۰", i: "https://images.pexels.com/photos/1187317/pexels-photo-1187317.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "نوشابه کوکاکولا", d: "نوشابه مشکی خنک", p: "۳۰,۰۰۰", i: "https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.pexels.com/photos/1352281/pexels-photo-1352281.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { n: "کیک شکلاتی", d: "کیک با سس شکلات", p: "۱۲۰,۰۰۰", i: "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=500" }
         ];
 
         function displayFoods(itemsToShow) {
@@ -97,8 +98,8 @@
             for (var i = 0; i < itemsToShow.length; i++) {
                 var f = itemsToShow[i];
                 html += '<div class="card">';
-                // اگر عکس لود نشد، خود کلمه نوشته میشه و ظاهر سایت به هم نمیریزه
-                html += '<img src="' + f.i + '" alt="' + f.n + '">';
+                // خط زیر: اگر عکس لود نشد، به جای علامت خرابی، پس زمینه خاکستری با اسم غذا نمایش داده میشه
+                html += '<img src="' + f.i + '" alt="' + f.n + '" onerror="this.style.display=\'none\'">';
                 html += '<div class="card-content">';
                 html += '<div class="card-title">' + f.n + '</div>';
                 html += '<div class="card-desc">' + f.d + '</div>';
