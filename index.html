@@ -12,13 +12,14 @@
         header h1 { color: #1d3557; font-size: 1.4rem; }
         header span { color: #e63946; }
         
-        .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; position: sticky; top: 65px; z-index: 99; }
+        .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; position: sticky; top: 65px; z-index: 99; text-align: center; }
         .search-container input {
             width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 50px;
             font-size: 1rem; outline: none; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             transition: 0.3s; background: #fff;
         }
         .search-container input:focus { border-color: #e63946; box-shadow: 0 4px 15px rgba(230,57,70,0.2); }
+        .search-hint { font-size: 0.8rem; color: #888; margin-top: 8px; display: block; }
 
         .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto 50px; padding: 0 15px; }
         
@@ -43,11 +44,12 @@
     </header>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا (مثلاً کباب، خورش، پلو)..." onkeyup="filterFoods()">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا، مواد اولیه..." onkeyup="filterFoods()">
+        <span class="search-hint">مثلاً بنویسید: کباب، برنج، مرغ، خورش، فسنجان...</span>
     </div>
 
     <div class="food-grid" id="foodGrid">
-        <p class="not-found" id="notFound">متأسفیم! غذایی با این نام پیدا نشد.</p>
+        <p class="not-found" id="notFound">متأسفیم! غذایی با این مشخصات پیدا نشد.</p>
     </div>
 
     <script>
@@ -105,6 +107,18 @@
             { name: "بستنی سنتی زعفرانی", desc: "بستنی سنتی با خلال بادام و پسته", price: "۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" }
         ];
 
+        // تابع تمیزکننده متن (برای اینکه حروف عربی و فارسی با هم فرقی نداشته باشن)
+        function normalizeText(text) {
+            if (!text) return "";
+            return text.toString()
+                .toLowerCase()
+                .replace(/ي/g, 'ی') // تبدیل ي عربی به ی فارسی
+                .replace(/ك/g, 'ک') // تبدیل ك عربی به ک فارسی
+                .replace(/\u200c/g, ' ') // تبدیل نیم‌فاصله به فاصله
+                .replace(/\s+/g, ' ') // حذف فاصله‌های اضافی
+                .trim();
+        }
+
         function displayFoods(items) {
             const grid = document.getElementById('foodGrid');
             const notFound = document.getElementById('notFound');
@@ -137,12 +151,29 @@
             });
         }
 
+        // تابع جستجوی هوشمند گوگلی
         function filterFoods() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let filtered = foods.filter(food => 
-                food.name.toLowerCase().includes(input) || 
-                food.desc.toLowerCase().includes(input)
-            );
+            let rawInput = document.getElementById('searchInput').value;
+            let input = normalizeText(rawInput);
+            
+            if (input === "") {
+                displayFoods(foods);
+                return;
+            }
+
+            // جدا کردن کلمات تایپ شده
+            let searchWords = input.split(' ');
+
+            let filtered = foods.filter(food => {
+                // اسم و توضیحات غذا رو تمیز می‌کنیم
+                let foodName = normalizeText(food.name);
+                let foodDesc = normalizeText(food.desc);
+                let searchTarget = foodName + " " + foodDesc;
+
+                // بررسی می‌کنیم که آیا تمام کلماتی که کاربر تایپ کرده، توی اسم یا توضیحات غذا هست یا نه
+                return searchWords.every(word => searchTarget.includes(word));
+            });
+
             displayFoods(filtered);
         }
 
