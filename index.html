@@ -12,9 +12,16 @@
         header h1 { color: #1d3557; font-size: 1.4rem; }
         header span { color: #e63946; }
         
-        /* استایل عکس بالای سایت */
+        /* استایل عکس بالای سایت - اصلاح شد تا کل عکس معلوم باشه */
         .hero-image-container { width: 100%; max-width: 1200px; margin: 20px auto 0; padding: 0 15px; text-align: center; }
-        .hero-image { width: 100%; max-height: 400px; object-fit: cover; object-position: center; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+        .hero-image { 
+            width: 100%; 
+            max-height: 450px; 
+            object-fit: contain; /* این خط باعث میشه کل عکس دیده بشه */
+            background-color: #e0e0e0; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+        }
 
         .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; position: sticky; top: 65px; z-index: 99; text-align: center; }
         .search-container input {
@@ -54,7 +61,7 @@
 
     <!-- کادر جستجو -->
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا، مواد اولیه..." onkeyup="filterFoods()">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا، مواد اولیه..." oninput="filterFoods()">
         <span class="search-hint">مثلاً بنویسید: کباب، برنج، مرغ، ماهی...</span>
     </div>
 
@@ -64,6 +71,7 @@
     </div>
 
     <script>
+        // لیست غذاها
         const foods = [
             { name: "ماهی کبابی تازه", desc: "ماهی کپور تازه کبابی شده با سبزیجات و ادویه مخصوص", price: "۴۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
             { name: "چلو مرغ زعفرانی", desc: "ران مرغ زعفرانی با برنج ایرانی، کره و گوجه کبابی", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?w=400" },
@@ -118,24 +126,30 @@
             { name: "بستنی سنتی زعفرانی", desc: "بستنی سنتی با خلال بادام و پسته", price: "۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" }
         ];
 
-        function normalizeText(text) {
-            if (!text) return "";
-            return text.toString().toLowerCase().replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/\u200c/g, ' ').replace(/\s+/g, ' ').trim();
-        }
-
-        function displayFoods(items) {
-            const grid = document.getElementById('foodGrid');
-            const notFound = document.getElementById('notFound');
+        // تابع ساده شده برای سرچ
+        function filterFoods() {
+            let input = document.getElementById('searchInput').value.trim().toLowerCase();
+            let grid = document.getElementById('foodGrid');
+            let notFound = document.getElementById('notFound');
+            
+            // پاک کردن غذاهای قبلی
             grid.querySelectorAll('.food-card').forEach(card => card.remove());
 
-            if(items.length === 0) {
+            // فیلتر کردن غذاها
+            let filtered = foods.filter(food => 
+                food.name.toLowerCase().includes(input) || 
+                food.desc.toLowerCase().includes(input)
+            );
+
+            if (filtered.length === 0) {
                 notFound.style.display = "block";
                 return;
             } else {
                 notFound.style.display = "none";
             }
 
-            items.forEach(food => {
+            // نمایش غذاهای پیدا شده
+            filtered.forEach(food => {
                 const card = document.createElement('div');
                 card.className = 'food-card';
                 card.innerHTML = `
@@ -155,28 +169,8 @@
             });
         }
 
-        function filterFoods() {
-            let rawInput = document.getElementById('searchInput').value;
-            let input = normalizeText(rawInput);
-            
-            if (input === "") {
-                displayFoods(foods);
-                return;
-            }
-
-            let searchWords = input.split(' ');
-
-            let filtered = foods.filter(food => {
-                let foodName = normalizeText(food.name);
-                let foodDesc = normalizeText(food.desc);
-                let searchTarget = foodName + " " + foodDesc;
-                return searchWords.every(word => searchTarget.includes(word));
-            });
-
-            displayFoods(filtered);
-        }
-
-        displayFoods(foods);
+        // اجرای اولیه برای نمایش همه غذاها
+        filterFoods();
     </script>
 </body>
 </html>
