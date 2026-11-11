@@ -53,8 +53,10 @@
     </div>
 
     <script>
-        // لیست کامل ۵۰ غذای ایرانی با عکس و قیمت
+        // لیست کامل غذاهای ایرانی (شامل چلو مرغ و قورمه سبزی)
         const foods = [
+            { name: "چلو مرغ زعفرانی", desc: "ران مرغ زعفرانی با برنج ایرانی، کره و گوجه کبابی", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?w=400" },
+            { name: "قورمه سبزی", desc: "خورش قورمه سبزی مجلسی با گوشت گوساله، لیمو عمانی و برنج", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "چلوکباب کوبیده", desc: "دو سیخ کباب کوبیده گوشت گوسفندی با برنج ایرانی", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
             { name: "کباب برگ", desc: "یک سیخ کباب برگ ممتاز با برنج زعفرانی", price: "۴۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
             { name: "جوجه کباب زعفرانی", desc: "یک سیخ جوجه کباب زعفرانی با برنج و گوجه کبابی", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
@@ -62,7 +64,6 @@
             { name: "کباب ترش گیلانی", desc: "کباب ترش با سس انار و گردو همراه با برنج", price: "۳۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
             { name: "کباب بختیاری", desc: "یک سیخ کباب بختیاری از فیله مرغ و گوشت گوسفندی", price: "۳۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
             { name: "چنجه کباب", desc: "کباب چنجه گوشت گوسفندی تازه با برنج", price: "۳۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
-            { name: "قورمه سبزی", desc: "خورش قورمه سبزی مجلسی با گوشت گوساله و لیمو عمانی", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "قیمه نثار", desc: "خورش قیمه با خلال سیب‌زمینی، خلال پرتقال و بادام", price: "۲۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
             { name: "خورش فسنجان", desc: "خورش فسنجان با مرغ، گردوی آسیاب شده و رب انار", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "خورش بادمجان", desc: "خورش بادمجان با گوشت، لیمو عمانی و برنج", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
@@ -112,10 +113,10 @@
             if (!text) return "";
             return text.toString()
                 .toLowerCase()
-                .replace(/ي/g, 'ی') // تبدیل ي عربی به ی فارسی
-                .replace(/ك/g, 'ک') // تبدیل ك عربی به ک فارسی
-                .replace(/\u200c/g, ' ') // تبدیل نیم‌فاصله به فاصله
-                .replace(/\s+/g, ' ') // حذف فاصله‌های اضافی
+                .replace(/ي/g, 'ی')
+                .replace(/ك/g, 'ک')
+                .replace(/\u200c/g, ' ')
+                .replace(/\s+/g, ' ')
                 .trim();
         }
 
@@ -161,16 +162,13 @@
                 return;
             }
 
-            // جدا کردن کلمات تایپ شده
             let searchWords = input.split(' ');
 
             let filtered = foods.filter(food => {
-                // اسم و توضیحات غذا رو تمیز می‌کنیم
                 let foodName = normalizeText(food.name);
                 let foodDesc = normalizeText(food.desc);
                 let searchTarget = foodName + " " + foodDesc;
 
-                // بررسی می‌کنیم که آیا تمام کلماتی که کاربر تایپ کرده، توی اسم یا توضیحات غذا هست یا نه
                 return searchWords.every(word => searchTarget.includes(word));
             });
 
