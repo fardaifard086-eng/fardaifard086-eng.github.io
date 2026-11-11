@@ -5,83 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رستوران فردین نبی زاده</title>
     <style>
-        /* ۱. تنظیمات پایه و رنگ‌بندی اصلی */
         :root { 
-            --primary: #c1121f; /* قرمز */
-            --dark: #003049;    /* سرمه‌ای */
-            --accent: #ffb703;  /* زرد */
-            --light: #f4f6f8;   /* خاکستری روشن */
+            --primary: #c1121f; 
+            --dark: #003049;    
+            --accent: #ffb703;  
+            --light: #f4f6f8;   
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--light); color: #333; display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* ۲. هدر (بالای سایت) */
-        header { background: var(--dark); color: white; padding: 20px 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .logo h1 { font-size: 1.6rem; font-weight: bold; color: #ffffff; margin: 0; }
+        /* هدر بزرگ‌تر */
+        header { 
+            background: var(--dark); 
+            color: white; 
+            padding: 35px 20px; /* ارتفاع بیشتر */
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25); 
+        }
+        .logo h1 { font-size: 2.2rem; font-weight: bold; color: #ffffff; margin: 0; letter-spacing: 1px; }
         .logo span { color: var(--accent); }
 
-        /* ۳. عکس ماهی */
-        .hero { width: 100%; max-width: 800px; margin: 20px auto; padding: 0 15px; text-align: center; }
+        /* عکس ماهی */
+        .hero { width: 100%; max-width: 800px; margin: 30px auto; padding: 0 15px; text-align: center; }
         .hero img { 
             width: 100%; 
-            max-height: 350px; 
+            max-height: 400px; 
             object-fit: contain; 
             background: #fff; 
             border-radius: 15px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-            border: 3px solid white; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
+            border: 4px solid white; 
         }
 
-        /* ۴. کادر جستجو */
-        .search-box { max-width: 600px; margin: 0 auto 30px; padding: 0 15px; position: relative; }
+        /* کادر جستجو */
+        .search-box { max-width: 700px; margin: 0 auto 40px; padding: 0 15px; position: relative; }
         .search-box input { 
-            width: 100%; padding: 16px 20px; border: none; border-radius: 50px; 
-            font-size: 1.1rem; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            width: 100%; padding: 18px 25px; border: none; border-radius: 50px; 
+            font-size: 1.2rem; outline: none; box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
             transition: 0.3s; 
         }
-        .search-box input:focus { box-shadow: 0 4px 20px rgba(193, 18, 31, 0.3); border: 2px solid var(--primary); }
+        .search-box input:focus { box-shadow: 0 5px 25px rgba(193, 18, 31, 0.4); border: 2px solid var(--primary); }
 
-        /* ۵. شبکه غذاها */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 15px 50px 15px; flex: 1; }
+        /* شبکه غذاها */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* کارت‌ها کمی پهن‌تر */
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px 60px 20px; 
+            flex: 1; 
+        }
         
-        /* کارت غذا */
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        /* کارت غذا (درازتر) */
+        .card { 
+            background: white; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: 0.3s; 
+            display: flex; 
+            flex-direction: column; 
+            border: 1px solid #eee;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         
-        /* تنظیمات عکس غذا (با قابلیت جایگزینی زیبا در صورت لود نشدن) */
-        .img-container { width: 100%; height: 180px; background: #e0e0e0; position: relative; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #999; }
+        /* کادر عکس غذا (ارتفاع بیشتر) */
+        .img-container { 
+            width: 100%; 
+            height: 250px; /* ارتفاع بیشتر برای درازتر شدن */
+            background: #e9ecef; 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; /* آیکون بشقاب بزرگ‌تر */
+            color: #adb5bd; 
+        }
         .img-container img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
         
-        .card-content { padding: 15px; display: flex; flex-direction: column; flex: 1; }
-        .card-title { font-size: 1.1rem; font-weight: bold; color: var(--dark); margin-bottom: 8px; }
-        .card-desc { font-size: 0.85rem; color: #6c757d; margin-bottom: 15px; line-height: 1.5; flex: 1; }
+        /* محتوای کارت */
+        .card-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
+        .card-title { font-size: 1.4rem; font-weight: bold; color: var(--dark); margin-bottom: 12px; }
+        .card-desc { font-size: 1rem; color: #6c757d; margin-bottom: 20px; line-height: 1.6; flex: 1; }
         
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #dee2e6; padding-top: 15px; }
-        .price { font-size: 1rem; font-weight: bold; color: var(--primary); }
-        .btn { background: var(--dark); color: white; border: none; padding: 8px 15px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
-        .btn:hover { background: var(--primary); }
+        /* فوتر کارت */
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #dee2e6; padding-top: 20px; }
+        .price { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+        .btn { background: var(--dark); color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 1rem; }
+        .btn:hover { background: var(--primary); transform: scale(1.05); }
         
-        .no-result { text-align: center; font-size: 1.2rem; color: var(--primary); font-weight: bold; grid-column: 1 / -1; padding: 40px; display: none; }
+        .no-result { text-align: center; font-size: 1.4rem; color: var(--primary); font-weight: bold; grid-column: 1 / -1; padding: 50px; display: none; }
 
-        /* ۶. فوتر (پایین سایت - طرح جدید) */
-        footer { background: var(--dark); color: white; text-align: center; padding: 30px 20px; margin-top: auto; border-top: 4px solid var(--accent); }
-        .footer-content { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
-        .footer-title { font-size: 1.2rem; font-weight: bold; color: var(--accent); margin-bottom: 5px; }
-        .footer-info { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; opacity: 0.9; }
-        .footer-info span { display: flex; align-items: center; gap: 5px; }
-        .copyright { font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        /* فوتر پایین سایت (بزرگ‌تر) */
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            text-align: center; 
+            padding: 50px 20px; 
+            margin-top: auto; 
+            border-top: 5px solid var(--accent); 
+        }
+        .footer-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .footer-title { font-size: 1.8rem; font-weight: bold; color: var(--accent); margin-bottom: 10px; }
+        .footer-info { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; font-size: 1.1rem; opacity: 0.95; }
+        .footer-info span { display: flex; align-items: center; gap: 8px; }
+        .copyright { font-size: 0.95rem; opacity: 0.7; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- هدر -->
+    <!-- هدر بزرگ -->
     <header>
         <div class="logo">
             <h1>رستوران <span>فردین نبی زاده</span></h1>
         </div>
     </header>
 
-    <!-- عکس ماهی (با لینک قبلی) -->
+    <!-- عکس ماهی -->
     <div class="hero">
         <img src="https://linkgostarbot.ir/bot/download/4878209/6523321285/Screenshot_2026_11_11_14_48_16_913_com_miui_gallery.jpg" alt="ماهی تازه">
     </div>
@@ -94,7 +135,7 @@
     <!-- ظرف غذاها -->
     <div class="grid-container" id="foodContainer"></div>
 
-    <!-- فوتر (پایین سایت) -->
+    <!-- فوتر بزرگ -->
     <footer>
         <div class="footer-content">
             <div class="footer-title">رستوران فردین نبی زاده</div>
@@ -110,7 +151,6 @@
     </footer>
 
     <script>
-        // ۱۵ غذای محبوب (کاهش یافته برای سرعت بالا)
         var foods = [
             { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.pexels.com/photos/1105325/pexels-photo-1105325.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=500" },
@@ -141,7 +181,6 @@
             for (var i = 0; i < itemsToShow.length; i++) {
                 var f = itemsToShow[i];
                 html += '<div class="card">';
-                // ساخت کانتینر عکس: اگر عکس لود نشد، آیکون بشقاب میاد
                 html += '<div class="img-container">🍽️';
                 html += '<img src="' + f.i + '" alt="' + f.n + '" onerror="this.style.display=\'none\'">';
                 html += '</div>';
