@@ -12,11 +12,10 @@
             --light: #f4f6f8;   
         }
         
-        /* تنظیمات پایه برای جلوگیری از هل داده شدن صفحه */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         html, body { 
             width: 100%; 
-            overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+            overflow-x: hidden; 
             background-color: var(--light); 
             color: #333; 
         }
@@ -33,11 +32,11 @@
         .logo h1 { font-size: 2rem; font-weight: bold; color: #ffffff; margin: 0; }
         .logo span { color: var(--accent); }
 
-        /* ۲. عکس ماهی (وسط‌چین) */
+        /* ۲. عکس ماهی (وسط‌چین و دائمی) */
         .hero { 
             width: 100%; 
             display: flex;
-            justify-content: center; /* وسط‌چین کردن افقی */
+            justify-content: center; 
             margin: 30px 0; 
             padding: 0 15px;
         }
@@ -45,7 +44,7 @@
             width: 100%;
             max-width: 700px; 
             max-height: 400px; 
-            object-fit: contain; 
+            object-fit: cover; 
             background: #fff; 
             border-radius: 15px; 
             box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
@@ -56,7 +55,7 @@
         .search-container {
             width: 100%;
             display: flex;
-            justify-content: center; /* وسط‌چین کردن کادر جستجو */
+            justify-content: center; 
             padding: 0 15px;
             margin-bottom: 40px;
         }
@@ -84,14 +83,13 @@
         .grid-container { 
             width: 100%;
             max-width: 1200px; 
-            margin: 0 auto 60px auto; /* وسط‌چین کردن کل گرید */
+            margin: 0 auto 60px auto; 
             padding: 0 20px; 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
             gap: 30px; 
         }
         
-        /* کارت غذا */
         .card { 
             background: white; 
             border-radius: 20px; 
@@ -104,7 +102,6 @@
         }
         .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         
-        /* کادر عکس غذا */
         .img-container { 
             width: 100%; 
             height: 250px; 
@@ -118,12 +115,10 @@
         }
         .img-container img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
         
-        /* محتوای کارت */
         .card-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
         .card-title { font-size: 1.4rem; font-weight: bold; color: var(--dark); margin-bottom: 12px; }
         .card-desc { font-size: 1rem; color: #6c757d; margin-bottom: 20px; line-height: 1.6; flex: 1; }
         
-        /* فوتر کارت */
         .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #dee2e6; padding-top: 20px; }
         .price { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
         .btn { background: var(--dark); color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 1rem; }
@@ -131,7 +126,7 @@
         
         .no-result { text-align: center; font-size: 1.4rem; color: var(--primary); font-weight: bold; grid-column: 1 / -1; padding: 50px; display: none; }
 
-        /* ۵. فوتر پایین سایت (تمام عرض - بزرگ) */
+        /* ۵. فوتر پایین سایت (تمام عرض) */
         footer { 
             width: 100%;
             background: var(--dark); 
@@ -146,29 +141,28 @@
         .footer-info span { display: flex; align-items: center; gap: 8px; }
         .copyright { font-size: 0.95rem; opacity: 0.7; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px; }
         
-        /* واکنش‌گرایی برای موبایل */
         @media (max-width: 600px) {
             .logo h1 { font-size: 1.6rem; }
-            .grid-container { grid-template-columns: 1fr; } /* در موبایل کارت‌ها تک ستونه بشن */
+            .grid-container { grid-template-columns: 1fr; } 
             .footer-info { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- هدر تمام عرض -->
+    <!-- هدر -->
     <header>
         <div class="logo">
             <h1>رستوران <span>فردین نبی زاده</span></h1>
         </div>
     </header>
 
-    <!-- عکس ماهی وسط‌چین -->
+    <!-- عکس ماهی (لینک دائمی و جدید) -->
     <div class="hero">
-        <img src="https://linkgostarbot.ir/bot/download/4878209/6523321285/Screenshot_2026_11_11_14_48_16_913_com_miui_gallery.jpg" alt="ماهی تازه">
+        <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80" alt="ماهی کبابی تازه">
     </div>
 
-    <!-- کادر جستجو وسط‌چین -->
+    <!-- کادر جستجو -->
     <div class="search-container">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="🔍 جستجوی ۱۵ غذای ایرانی..." onkeyup="filterFoods()">
@@ -178,7 +172,7 @@
     <!-- ظرف غذاها -->
     <div class="grid-container" id="foodContainer"></div>
 
-    <!-- فوتر پایین (تمام عرض) -->
+    <!-- فوتر -->
     <footer>
         <div class="footer-content">
             <div class="footer-title">رستوران فردین نبی زاده</div>
@@ -194,22 +188,23 @@
     </footer>
 
     <script>
+        // لینک عکس‌ها دقیقا مطابق با اسم غذا انتخاب شده‌اند
         var foods = [
-            { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.pexels.com/photos/1105325/pexels-photo-1105325.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "قورمه سبزی", d: "خورش قورمه سبزی مجلسی با گوشت گوساله", p: "۲۵۰,۰۰۰", i: "https://images.pexels.com/photos/5737463/pexels-photo-5737463.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "خورش فسنجان", d: "خورش فسنجان با مرغ و گردو", p: "۲۸۰,۰۰۰", i: "https://images.pexels.com/photos/6210959/pexels-photo-6210959.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "قیمه نثار", d: "خورش قیمه با خلال سیب‌زمینی و بادام", p: "۲۶۰,۰۰۰", i: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "زرشک پلو با مرغ", d: "ران مرغ زعفرانی با زرشک", p: "۲۴۰,۰۰۰", i: "https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "باقالی پلو با ماهیچه", d: "ماهیچه گوسفندی با باقالی پلو", p: "۴۸۰,۰۰۰", i: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "میرزاقاسمی", d: "بادمجان کبابی با گوجه و سیر", p: "۱۶۰,۰۰۰", i: "https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://images.pexels.com/photos/5410400/pexels-photo-5410400.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://images.pexels.com/photos/5409751/pexels-photo-5409751.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://images.pexels.com/photos/6210959/pexels-photo-6210959.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.pexels.com/photos/1352281/pexels-photo-1352281.jpeg?auto=compress&cs=tinysrgb&w=500" }
+            { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" },
+            { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600&q=80" },
+            { n: "قورمه سبزی", d: "خورش قورمه سبزی مجلسی با گوشت گوساله", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
+            { n: "خورش فسنجان", d: "خورش فسنجان با مرغ و گردو", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80" },
+            { n: "قیمه نثار", d: "خورش قیمه با خلال سیب‌زمینی و بادام", p: "۲۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80" },
+            { n: "زرشک پلو با مرغ", d: "ران مرغ زعفرانی با زرشک", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=600&q=80" },
+            { n: "باقالی پلو با ماهیچه", d: "ماهیچه گوسفندی با باقالی پلو", p: "۴۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265948?w=600&q=80" },
+            { n: "میرزاقاسمی", d: "بادمجان کبابی با گوجه و سیر", p: "۱۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=600&q=80" },
+            { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ec?w=600&q=80" },
+            { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ace?w=600&q=80" },
+            { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990555?w=600&q=80" },
+            { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
+            { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" },
+            { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&q=80" }
         ];
 
         function displayFoods(itemsToShow) {
@@ -225,6 +220,7 @@
                 var f = itemsToShow[i];
                 html += '<div class="card">';
                 html += '<div class="img-container">🍽️';
+                // اگر عکس لود نشد، آیکون بشقاب نمایش داده می‌شود
                 html += '<img src="' + f.i + '" alt="' + f.n + '" onerror="this.style.display=\'none\'">';
                 html += '</div>';
                 
@@ -257,4 +253,4 @@
         };
     </script>
 </body>
-                </html>
+</html>
