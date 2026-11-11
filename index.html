@@ -3,34 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رستوران فردین نبی زاده | سفارش آنلاین</title>
+    <title>رستوران فردین نبی زاده | منوی کامل</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Tahoma, sans-serif; }
-        body { background: #f8f9fa; color: #333; }
+        body { background: #f4f6f8; color: #333; }
         
         header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
         header h1 { color: #1d3557; font-size: 1.4rem; }
         header span { color: #e63946; }
-
-        .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+        
+        .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; position: sticky; top: 65px; z-index: 99; }
         .search-container input {
             width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 50px;
-            font-size: 1rem; outline: none; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            font-size: 1rem; outline: none; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: 0.3s; background: #fff;
         }
-        .search-container input:focus { border-color: #e63946; }
+        .search-container input:focus { border-color: #e63946; box-shadow: 0 4px 15px rgba(230,57,70,0.2); }
 
-        .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto 40px; padding: 0 15px; }
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto 50px; padding: 0 15px; }
         
-        .food-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-        .food-img { width: 100%; height: 180px; object-fit: cover; }
-        .food-info { padding: 15px; }
+        .food-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: 0.3s; display: flex; flex-direction: column; }
+        .food-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .food-img { width: 100%; height: 170px; object-fit: cover; background: #eee; }
+        .food-info { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .food-info h3 { color: #1d3557; font-size: 1.1rem; margin-bottom: 5px; }
-        .food-info p { color: #6c757d; font-size: 0.85rem; margin-bottom: 15px; }
-        .food-footer { display: flex; justify-content: space-between; align-items: center; }
+        .food-info p { color: #6c757d; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.4; height: 38px; overflow: hidden; }
+        .food-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 10px; }
         .price { color: #e63946; font-weight: bold; font-size: 1rem; }
-        .add-btn { background: #1d3557; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+        .add-btn { background: #1d3557; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
+        .add-btn:hover { background: #e63946; }
 
-        .not-found { text-align: center; color: #e63946; font-size: 1.2rem; grid-column: 1 / -1; display: none; margin-top: 20px;}
+        .not-found { text-align: center; color: #e63946; font-size: 1.2rem; grid-column: 1 / -1; display: none; margin: 30px 0; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -40,93 +43,110 @@
     </header>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="🔍 اسم غذا را جستجو کنید (مثلاً چلوکباب)..." onkeyup="filterFoods()">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا (مثلاً کباب، خورش، پلو)..." onkeyup="filterFoods()">
     </div>
 
     <div class="food-grid" id="foodGrid">
-        
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="چلوکباب" class="food-img">
-            <div class="food-info">
-                <h3>چلوکباب کوبیده</h3>
-                <p>دو سیخ کباب کوبیده با برنج ایرانی</p>
-                <div class="food-footer">
-                    <span class="price">۲۸۰,۰۰۰ تومان</span>
-                    <button class="add-btn" onclick="alert('چلوکباب اضافه شد!')">افزودن</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" alt="جوجه کباب" class="food-img">
-            <div class="food-info">
-                <h3>جوجه کباب زعفرانی</h3>
-                <p>یک سیخ جوجه کباب با برنج</p>
-                <div class="food-footer">
-                    <span class="price">۲۵۰,۰۰۰ تومان</span>
-                    <button class="add-btn" onclick="alert('جوجه کباب اضافه شد!')">افزودن</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400" alt="قورمه سبزی" class="food-img">
-            <div class="food-info">
-                <h3>قورمه سبزی</h3>
-                <p>خورش قورمه سبزی با گوشت تازه</p>
-                <div class="food-footer">
-                    <span class="price">۲۲۰,۰۰۰ تومان</span>
-                    <button class="add-btn" onclick="alert('قورمه سبزی اضافه شد!')">افزودن</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400" alt="پیتزا" class="food-img">
-            <div class="food-info">
-                <h3>پیتزا پپرونی</h3>
-                <p>پیتزا با پنیر موزارلا و سس مخصوص</p>
-                <div class="food-footer">
-                    <span class="price">۳۲۰,۰۰۰ تومان</span>
-                    <button class="add-btn" onclick="alert('پیتزا اضافه شد!')">افزودن</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="برگر" class="food-img">
-            <div class="food-info">
-                <h3>برگر دوبل</h3>
-                <p>برگر با گوشت چرخ‌کرده و پنیر چدار</p>
-                <div class="food-footer">
-                    <span class="price">۲۹۰,۰۰۰ تومان</span>
-                    <button class="add-btn" onclick="alert('برگر اضافه شد!')">افزودن</button>
-                </div>
-            </div>
-        </div>
-
-        <p class="not-found" id="notFound">غذایی با این اسم پیدا نشد!</p>
+        <p class="not-found" id="notFound">متأسفیم! غذایی با این نام پیدا نشد.</p>
     </div>
 
     <script>
-        function filterFoods() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('food-card');
-            let foundAny = false;
+        // لیست کامل ۵۰ غذای ایرانی با عکس و قیمت
+        const foods = [
+            { name: "چلوکباب کوبیده", desc: "دو سیخ کباب کوبیده گوشت گوسفندی با برنج ایرانی", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "کباب برگ", desc: "یک سیخ کباب برگ ممتاز با برنج زعفرانی", price: "۴۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
+            { name: "جوجه کباب زعفرانی", desc: "یک سیخ جوجه کباب زعفرانی با برنج و گوجه کبابی", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
+            { name: "کباب سلطانی", desc: "یک سیخ برگ و یک سیخ کوبیده با برنج ایرانی", price: "۵۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "کباب ترش گیلانی", desc: "کباب ترش با سس انار و گردو همراه با برنج", price: "۳۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
+            { name: "کباب بختیاری", desc: "یک سیخ کباب بختیاری از فیله مرغ و گوشت گوسفندی", price: "۳۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
+            { name: "چنجه کباب", desc: "کباب چنجه گوشت گوسفندی تازه با برنج", price: "۳۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
+            { name: "قورمه سبزی", desc: "خورش قورمه سبزی مجلسی با گوشت گوساله و لیمو عمانی", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "قیمه نثار", desc: "خورش قیمه با خلال سیب‌زمینی، خلال پرتقال و بادام", price: "۲۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "خورش فسنجان", desc: "خورش فسنجان با مرغ، گردوی آسیاب شده و رب انار", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "خورش بادمجان", desc: "خورش بادمجان با گوشت، لیمو عمانی و برنج", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "خورش کرفس", desc: "خورش کرفس با گوشت، کرفس تازه و نعنا خشک", price: "۲۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "خورش بامیه", desc: "خورش بامیه با گوشت گوساله و سس گوجه", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "خورش کدو", desc: "خورش کدو با گوشت و کدوی تازه", price: "۲۱۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "خورش آلو اسفناج", desc: "خورش اسفناج با آلو بخارا و گوشت", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "خورش هویج", desc: "خورش هویج با گوشت و رب انار", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "خورش لوبیا", desc: "خورش لوبیا سبز با گوشت گوساله", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "زرشک پلو با مرغ", desc: "ران مرغ زعفرانی همراه با زرشک و برنج", price: "۲۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
+            { name: "باقالی پلو با ماهیچه", desc: "ماهیچه گوسفندی نرم با باقالی پلو و زعفران", price: "۴۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { name: "لوبیا پلو", desc: "لوبیا پلو با گوشت چرخ‌کرده و سس مخصوص", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "عدس پلو", desc: "عدس پلو با گوشت چرخ‌کرده، کشمش و خرما", price: "۲۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "شیرین پلو", desc: "شیرین پلو با مرغ، خلال پرتقال و بادام", price: "۲۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
+            { name: "سبزی پلو با ماهی", desc: "سبزی پلو با ماهی قزل‌آلا سرخ‌شده", price: "۳۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
+            { name: "کلم پلو", desc: "کلم پلو با گوشت چرخ‌کرده و کلم برگ", price: "۲۱۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "هویج پلو", desc: "هویج پلو با مرغ و خلال هویج", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
+            { name: "آلبالو پلو", desc: "آلبالو پلو با مرغ و آلبالوی تازه", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
+            { name: "دیزی سنتی", desc: "آبگوشت سنتی با نان سنگک، پیاز و ترشی", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { name: "حلیم گندم", desc: "حلیم گندم با گوشت، دارچین و شکر", price: "۱۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+            { name: "آش رشته", desc: "آش رشته سنتی با کشک، پیاز داغ و نعنا داغ", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+            { name: "آش دوغ", desc: "آش دوغ سنتی آذربایجان با سبزی معطر", price: "۱۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+            { name: "آش شله قلمکار", desc: "آش شله قلمکار با حبوبات و سبزیجات", price: "۱۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+            { name: "آش انار", desc: "آش انار با رب انار و گوشت", price: "۱۳۵,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+            { name: "میرزاقاسمی", desc: "بادمجان کبابی با گوجه، سیر و تخم‌مرغ", price: "۱۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
+            { name: "کوکو سبزی", desc: "کوکو سبزی تازه با نان، ماست و ترشی", price: "۱۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
+            { name: "کوکو سیب‌زمینی", desc: "کوکو سیب‌زمینی با تخم‌مرغ و ادویه", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
+            { name: "شامی کباب", desc: "شامی کباب گوشت و نخودچی با نان", price: "۱۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
+            { name: "کتلت", desc: "کتلت گوشت و سیب‌زمینی با نان و سبزی", price: "۱۷۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
+            { name: "دلمه برگ مو", desc: "دلمه برگ مو با گوشت چرخ‌کرده و برنج", price: "۱۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "دلمه فلفل دلمه‌ای", desc: "فلفل دلمه‌ای پر شده با گوشت و برنج", price: "۲۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { name: "ماهی قزل‌آلا کبابی", desc: "ماهی قزل‌آلا کبابی با سبزیجات", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
+            { name: "پیتزا پپرونی", desc: "پیتزا با پنیر موزارلا، پپرونی و سس مخصوص", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400" },
+            { name: "پیتزا مخصوص", desc: "پیتزا مخصوص با گوشت، قارچ و فلفل دلمه", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
+            { name: "برگر دوبل", desc: "برگر دوبل با گوشت چرخ‌کرده و پنیر چدار", price: "۲۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
+            { name: "ساندویچ ژامبون مرغ", desc: "ساندویچ ژامبون مرغ با سس مخصوص", price: "۱۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1553909489-cd47e0907980?w=400" },
+            { name: "سیب‌زمینی سرخ‌کرده", desc: "سیب‌زمینی سرخ‌کرده با سس مخصوص", price: "۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" },
+            { name: "سالاد شیرازی", desc: "خیار، گوجه، پیاز و آبغوره تازه", price: "۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" },
+            { name: "ماست و خیار", desc: "ماست پرچرب با خیار رنده شده و نعنا خشک", price: "۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=400" },
+            { name: "ماست موسیر", desc: "ماست با موسیر تازه و پودر نعنا", price: "۴۵,۰۰۰", img: "https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=400" },
+            { name: "دوغ محلی", desc: "دوغ گازدار سنتی با نعنا", price: "۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" },
+            { name: "بستنی سنتی زعفرانی", desc: "بستنی سنتی با خلال بادام و پسته", price: "۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" }
+        ];
 
-            for (let i = 0; i < cards.length; i++) {
-                let foodName = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-                if (foodName.includes(input)) {
-                    cards[i].style.display = "block";
-                    foundAny = true;
-                } else {
-                    cards[i].style.display = "none";
-                }
+        function displayFoods(items) {
+            const grid = document.getElementById('foodGrid');
+            const notFound = document.getElementById('notFound');
+            grid.querySelectorAll('.food-card').forEach(card => card.remove());
+
+            if(items.length === 0) {
+                notFound.style.display = "block";
+                return;
+            } else {
+                notFound.style.display = "none";
             }
 
-            let notFoundMsg = document.getElementById('notFound');
-            notFoundMsg.style.display = (foundAny === false) ? "block" : "none";
+            items.forEach(food => {
+                const card = document.createElement('div');
+                card.className = 'food-card';
+                card.innerHTML = `
+                    <img src="${food.img}" alt="${food.name}" class="food-img" loading="lazy" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+                    <div class="food-info">
+                        <div>
+                            <h3>${food.name}</h3>
+                            <p>${food.desc}</p>
+                        </div>
+                        <div class="food-footer">
+                            <span class="price">${food.price} تومان</span>
+                            <button class="add-btn" onclick="alert('${food.name} به سبد خرید اضافه شد!')">افزودن</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
+
+        function filterFoods() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let filtered = foods.filter(food => 
+                food.name.toLowerCase().includes(input) || 
+                food.desc.toLowerCase().includes(input)
+            );
+            displayFoods(filtered);
+        }
+
+        displayFoods(foods);
     </script>
 </body>
 </html>
