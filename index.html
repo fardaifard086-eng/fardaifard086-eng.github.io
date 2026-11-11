@@ -3,50 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رستوران فردین نبی زاده | منوی کامل ۱۰۰ غذا</title>
+    <title>رستوران فردین نبی زاده</title>
     <style>
         /* تنظیمات پایه و رنگ‌بندی */
         :root {
             --primary: #c1121f;
-            --secondary: #fdf0d5;
             --dark: #003049;
-            --light: #f8f9fa;
-            --text: #2b2d42;
+            --light: #f4f6f8;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--light); color: var(--text); padding-bottom: 50px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--light); color: #333; padding-bottom: 50px; }
 
-        /* هدر و نوار ساعت */
-        header { background: var(--dark); color: white; padding: 10px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
-        .top-nav { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 8px; margin-bottom: 10px; }
-        .logo { text-align: center; padding-bottom: 5px; }
-        .logo h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; }
+        /* هدر */
+        header { background: var(--dark); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .logo h1 { font-size: 1.8rem; font-weight: bold; }
         .logo span { color: #ffb703; }
 
-        /* عکس هیرو */
-        .hero { width: 100%; max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        .hero img { width: 100%; height: 250px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 3px solid white; }
+        /* عکس ماهی (تنظیم شده برای اینکه کامل دیده بشه) */
+        .hero { width: 100%; max-width: 800px; margin: 20px auto; padding: 0 15px; text-align: center; }
+        .hero img { 
+            width: 100%; 
+            max-height: 400px; 
+            object-fit: contain; /* این خط باعث میشه عکس کامل و بدون بریدگی دیده بشه */
+            background: #fff;
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            border: 3px solid white;
+        }
 
         /* کادر جستجو */
         .search-box { max-width: 600px; margin: 0 auto 30px; padding: 0 15px; position: relative; }
-        .search-box input { width: 100%; padding: 16px 20px; border: none; border-radius: 50px; font-size: 1.1rem; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); background: white; color: var(--text); transition: 0.3s; }
+        .search-box input { 
+            width: 100%; padding: 16px 20px; border: none; border-radius: 50px; 
+            font-size: 1.1rem; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            transition: 0.3s; 
+        }
         .search-box input:focus { box-shadow: 0 4px 20px rgba(193, 18, 31, 0.3); border: 2px solid var(--primary); }
-        .search-box::after { content: '🔍'; position: absolute; left: 30px; top: 16px; font-size: 1.2rem; }
-
+        
         /* شبکه غذاها */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         
         /* کارت غذا */
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; border: 1px solid #eee; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-        .card img { width: 100%; height: 180px; object-fit: cover; background: #e9ecef; }
-        .card-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-        .card-title { font-size: 1.2rem; font-weight: bold; color: var(--dark); margin-bottom: 8px; }
+        .card img { width: 100%; height: 180px; object-fit: cover; background: #eee; }
+        .card-content { padding: 15px; display: flex; flex-direction: column; flex: 1; }
+        .card-title { font-size: 1.1rem; font-weight: bold; color: var(--dark); margin-bottom: 8px; }
         .card-desc { font-size: 0.85rem; color: #6c757d; margin-bottom: 15px; line-height: 1.5; flex: 1; }
         .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #dee2e6; padding-top: 15px; }
-        .price { font-size: 1.1rem; font-weight: bold; color: var(--primary); }
-        .btn { background: var(--dark); color: white; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
-        .btn:hover { background: var(--primary); transform: scale(1.05); }
+        .price { font-size: 1rem; font-weight: bold; color: var(--primary); }
+        .btn { background: var(--dark); color: white; border: none; padding: 8px 15px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
+        .btn:hover { background: var(--primary); }
 
         .no-result { text-align: center; font-size: 1.2rem; color: var(--primary); font-weight: bold; grid-column: 1 / -1; padding: 40px; display: none; }
     </style>
@@ -54,158 +61,148 @@
 <body>
 
     <header>
-        <div class="top-nav">
-            <span id="date-box">تاریخ امروز</span>
-            <span id="time-box">ساعت</span>
-        </div>
         <div class="logo">
             <h1>رستوران <span>فردین نبی زاده</span></h1>
         </div>
     </header>
 
-    <!-- عکس ماهی شما -->
+    <!-- عکس ماهی -->
     <div class="hero">
         <img src="https://linkgostarbot.ir/bot/download/4878209/6523321285/Screenshot_2026_11_11_14_48_16_913_com_miui_gallery.jpg" alt="ماهی تازه">
     </div>
 
     <!-- جستجو -->
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="جستجوی ۱۰۰ غذای ایرانی (مثلاً کباب، قورمه، پیتزا)" onkeyup="filterFoods()">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی ۱۰۰ غذای ایرانی..." onkeyup="filterFoods()">
     </div>
 
     <!-- ظرف غذاها -->
     <div class="grid-container" id="foodContainer">
-        <div class="no-result" id="noResult">غذایی با این مشخصات یافت نشد!</div>
+        <!-- کارت‌های غذا با جاوااسکریپت اینجا قرار می‌گیرند -->
     </div>
 
     <script>
-        // 1. تنظیم ساعت و تاریخ بدون کرش کردن
-        function updateTime() {
-            try {
-                var now = new Date();
-                // ساعت
-                var h = now.getHours();
-                var m = now.getMinutes();
-                var s = now.getSeconds();
-                var timeString = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
-                document.getElementById('time-box').innerText = "⏰ " + timeString;
-                
-                // تاریخ (به صورت ساده برای جلوگیری از ارور مرورگرهای قدیمی)
-                var year = now.getFullYear();
-                var month = now.getMonth() + 1;
-                var day = now.getDate();
-                document.getElementById('date-box').innerText = "📅 " + year + "/" + month + "/" + day;
-            } catch(e) {
-                console.log("Clock error");
-            }
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
-
-        // 2. لیست ۱۰۰ غذای ایرانی با عکس‌های متفاوت
-        const foods = [
-            { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265947" },
-            { n: "کباب برگ", d: "یک سیخ کباب برگ ممتاز، برنج زعفرانی", p: "۴۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1" },
-            { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143" },
-            { n: "کباب سلطانی", d: "یک سیخ برگ، یک سیخ کوبیده، برنج", p: "۵۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265948" },
-            { n: "کباب ترش گیلانی", d: "کباب ترش با سس انار و گردو", p: "۳۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1555939594-58d7cb561ad2" },
-            { n: "کباب بختیاری", d: "فیله مرغ و گوشت گوسفندی", p: "۳۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258144" },
-            { n: "چنجه کباب", d: "کباب چنجه گوسفندی تازه", p: "۳۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1555939594-58d7cb561ad3" },
-            { n: "کباب شیشلیک", d: "شیشلیک گوسفندی با چربی", p: "۶۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265949" },
-            { n: "جوجه کباب بدون استخوان", d: "فیله مرغ کبابی مزه‌دار", p: "۲۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258145" },
-            { n: "ماهی قزل‌آلا کبابی", d: "ماهی کبابی با سبزیجات", p: "۴۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2" },
-            { n: "قورمه سبزی", d: "خورش قورمه سبزی مجلسی با گوشت گوساله", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990554" },
-            { n: "قیمه نثار", d: "خورش قیمه با خلال سیب‌زمینی و بادام", p: "۲۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456975" },
-            { n: "خورش فسنجان", d: "خورش فسنجان با مرغ و گردو", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990555" },
-            { n: "خورش بادمجان", d: "خورش بادمجان با گوشت و لیمو", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456976" },
-            { n: "خورش کرفس", d: "خورش کرفس با گوشت و نعنا", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990556" },
-            { n: "خورش بامیه", d: "خورش بامیه با گوشت گوساله", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456977" },
-            { n: "خورش کدو", d: "خورش کدو با گوشت", p: "۲۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990557" },
-            { n: "خورش آلو اسفناج", d: "خورش اسفناج با آلو بخارا", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456978" },
-            { n: "خورش هویج", d: "خورش هویج با گوشت و رب انار", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990558" },
-            { n: "خورش لوبیا", d: "خورش لوبیا سبز با گوشت", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456979" },
-            { n: "زرشک پلو با مرغ", d: "ران مرغ زعفرانی با زرشک", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369" },
-            { n: "باقالی پلو با ماهیچه", d: "ماهیچه گوسفندی با باقالی پلو", p: "۴۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265950" },
-            { n: "لوبیا پلو", d: "لوبیا پلو با گوشت چرخ‌کرده", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456980" },
-            { n: "عدس پلو", d: "عدس پلو با گوشت و کشمش", p: "۲۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990559" },
-            { n: "شیرین پلو", d: "شیرین پلو با مرغ و خلال پرتقال", p: "۲۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7370" },
-            { n: "سبزی پلو با ماهی", d: "سبزی پلو با ماهی قزل‌آلا", p: "۳۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a3" },
-            { n: "کلم پلو", d: "کلم پلو با گوشت چرخ‌کرده", p: "۲۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456981" },
-            { n: "هویج پلو", d: "هویج پلو با مرغ", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7371" },
-            { n: "آلبالو پلو", d: "آلبالو پلو با مرغ", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7372" },
-            { n: "چلو مرغ زعفرانی", d: "ران مرغ زعفرانی با برنج و کره", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd" },
-            { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744acd" },
-            { n: "آش دوغ", d: "آش دوغ آذربایجان با سبزی", p: "۱۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ace" },
-            { n: "آش شله قلمکار", d: "آش شله قلمکار با حبوبات", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744acf" },
-            { n: "آش انار", d: "آش انار با رب انار و گوشت", p: "۱۳۵,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad0" },
-            { n: "آش جو", d: "آش جو با شیر و قارچ", p: "۱۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad1" },
-            { n: "آش سماق", d: "آش سماق با گوشت و حبوبات", p: "۱۲۵,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad2" },
-            { n: "حلیم گندم", d: "حلیم گندم با گوشت و دارچین", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad3" },
-            { n: "کله پاچه", d: "کله پاچه کامل با نان", p: "۴۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456982" },
-            { n: "سیرابی", d: "سیرابی با ادویه مخصوص", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456983" },
-            { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456984" },
-            { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1628840042765-356cda07504e" },
-            { n: "پیتزا مخصوص", d: "پیتزا با گوشت، قارچ و فلفل", p: "۳۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1513104890138-7c749659a591" },
-            { n: "پیتزا مرغ و قارچ", d: "پیتزا با مرغ ریش‌ریش و قارچ", p: "۳۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" },
-            { n: "پیتزا مارگاریتا", d: "پیتزا با سس گوجه و ریحان", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002" },
-            { n: "پیتزا سبزیجات", d: "پیتزا با فلفل دلمه و زیتون", p: "۲۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1511689664220-5f0b40a1d2a0" },
-            { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd" },
-            { n: "چیز برگر", d: "برگر با پنیر گودا", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1550547660-d9450f859349" },
-            { n: "ماشروم برگر", d: "برگر با قارچ سرخ شده", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9" },
-            { n: "ساندویچ ژامبون مرغ", d: "ساندویچ ژامبون با سس مخصوص", p: "۱۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1553909489-cd47e0907980" },
-            { n: "ساندویچ هات داگ", d: "هات داگ با سوسیس گوشت", p: "۱۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1612392062798-3f5c8f9c8a71" },
-            { n: "ساندویچ فلافل", d: "فلافل تازه با سیب‌زمینی", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1593001874117-c99c800e3eb1" },
-            { n: "ساندویچ کباب", d: "ساندویچ کباب کوبیده", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265951" },
-            { n: "ساندویچ شنیسل مرغ", d: "شنیسل مرغ سوخاری", p: "۱۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258146" },
-            { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877" },
-            { n: "سیب‌زمینی با پنیر", d: "سیب‌زمینی با سس پنیر", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f878" },
-            { n: "ناگت مرغ", d: "ناگت مرغ سوخاری", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1562967914-608f82629710" },
-            { n: "قارچ سوخاری", d: "قارچ سوخاری تازه", p: "۱۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263eb" },
-            { n: "مرغ سوخاری", d: "تکه مرغ سوخاری", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1562967914-608f82629711" },
-            { n: "پاستا آلفردو", d: "پاستا با سس سفید و مرغ", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9" },
-            { n: "پاستا بولونیز", d: "پاستا با سس گوجه و گوشت", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8de" },
-            { n: "سالاد شیرازی", d: "خیار، گوجه، پیاز و آبغوره", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd" },
-            { n: "سالاد فصل", d: "کاهو، خیار، گوجه و ذرت", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1512621776951-a57141f2eefe" },
-            { n: "سالاد سزار", d: "کاهو، نان تست و سس سزار", p: "۱۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9" },
-            { n: "سالاد یونانی", d: "خیار، گوجه، زیتون و پنیر فتا", p: "۱۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1540420773420-3366772f4999" },
-            { n: "ماست و خیار", d: "ماست با خیار و نعنا خشک", p: "۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1571212515416-fef01fc43637" },
-            { n: "ماست موسیر", d: "ماست با موسیر تازه", p: "۴۵,۰۰۰", i: "https://images.unsplash.com/photo-1571212515416-fef01fc43638" },
-            { n: "زیتون پرورده", d: "زیتون با گردو و انار", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1512621776951-a57141f2eeff" },
-            { n: "میرزاقاسمی", d: "بادمجان کبابی با گوجه و سیر", p: "۱۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ec" },
-            { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ed" },
-            { n: "کوکو سبزی", d: "کوکو سبزی با نان و ماست", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ee" },
-            { n: "دوغ محلی", d: "دوغ گازدار سنتی", p: "۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc699" },
-            { n: "نوشابه کوکاکولا", d: "نوشابه مشکی", p: "۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e" },
-            { n: "نوشابه اسپرایت", d: "نوشابه لیمویی", p: "۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3" },
-            { n: "لیموناد", d: "لیموناد با نعنا و یخ", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd" },
-            { n: "آب پرتقال", d: "آب پرتقال طبیعی", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1613478223719-2ab802602423" },
-            { n: "آب هویج", d: "آب هویج با عسل", p: "۵۵,۰۰۰", i: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37" },
-            { n: "شربت آلبالو", d: "شربت آلبالو خنک", p: "۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fe" },
-            { n: "شربت زعفران", d: "شربت زعفران و گلاب", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2ff" },
-            { n: "چای سیاه", d: "چای سیاه با نبات", p: "۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1544787219-7f47ccb76574" },
-            { n: "چای سبز", d: "چای سبز با عسل", p: "۲۵,۰۰۰", i: "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5" },
-            { n: "قهوه اسپرسو", d: "قهوه اسپرسو تک شات", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04" },
-            { n: "کاپوچینو", d: "قهوه با شیر بخارپز", p: "۱۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1572442388796-11668a67e53d" },
-            { n: "لاته", d: "قهوه با شیر و فوم", p: "۱۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f" },
-            { n: "میلک‌شیک شکلاتی", d: "میلک‌شیک با بستنی", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc700" },
-            { n: "میلک‌شیک وانیلی", d: "میلک‌شیک با خامه", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc701" },
-            { n: "میلک‌شیک توت‌فرنگی", d: "میلک‌شیک توت‌فرنگی", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc702" },
-            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f" },
-            { n: "بستنی شکلاتی", d: "بستنی با سس شکلات", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1563805042-7684c8a4c54c" },
-            { n: "بستنی وانیلی", d: "بستنی با سس کارامل", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a" },
-            { n: "فالوده شیرازی", d: "فالوده با آبلیمو", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1497034825429-c343d7c6a690" },
-            { n: "کیک شکلاتی", d: "کیک با سس شکلات", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9587" },
-            { n: "کیک وانیلی", d: "کیک با خامه", p: "۱۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9588" },
-            { n: "تیرامیسو", d: "دسر ایتالیایی قهوه", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d" },
-            { n: "چیز کیک", d: "چیز کیک با توت‌فرنگی", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad" },
-            { n: "ژله توت‌فرنگی", d: "ژله با خامه", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9589" },
-            { n: "پودینگ شکلاتی", d: "پودینگ با خامه", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9590" },
-            { n: "حلوا زرده", d: "حلوا سنتی با زعفران", p: "۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9591" },
-            { n: "شله زرد", d: "شله زرد با دارچین", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9592" },
-            { n: "فرنی", d: "فرنی با گلاب", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9593" },
-            { n: "باقلوا", d: "باقلوا با پسته", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9594" },
-            { n: "زولبیا و بامیه", d: "زولبیا و بامیه تازه", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9595" }
+        // لیست ۱۰۰ غذا
+        var foods = [
+            { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
+            { n: "کباب برگ", d: "یک سیخ کباب برگ ممتاز، برنج زعفرانی", p: "۴۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
+            { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
+            { n: "کباب سلطانی", d: "یک سیخ برگ، یک سیخ کوبیده، برنج", p: "۵۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265948?w=400" },
+            { n: "کباب ترش گیلانی", d: "کباب ترش با سس انار و گردو", p: "۳۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1555939594-58d7cb561ad2?w=400" },
+            { n: "کباب بختیاری", d: "فیله مرغ و گوشت گوسفندی", p: "۳۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258144?w=400" },
+            { n: "چنجه کباب", d: "کباب چنجه گوسفندی تازه", p: "۳۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1555939594-58d7cb561ad3?w=400" },
+            { n: "کباب شیشلیک", d: "شیشلیک گوسفندی با چربی", p: "۶۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265949?w=400" },
+            { n: "جوجه کباب بدون استخوان", d: "فیله مرغ کبابی مزه‌دار", p: "۲۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258145?w=400" },
+            { n: "ماهی قزل‌آلا کبابی", d: "ماهی کبابی با سبزیجات", p: "۴۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
+            { n: "قورمه سبزی", d: "خورش قورمه سبزی مجلسی با گوشت گوساله", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+            { n: "قیمه نثار", d: "خورش قیمه با خلال سیب‌زمینی و بادام", p: "۲۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
+            { n: "خورش فسنجان", d: "خورش فسنجان با مرغ و گردو", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990555?w=400" },
+            { n: "خورش بادمجان", d: "خورش بادمجان با گوشت و لیمو", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456976?w=400" },
+            { n: "خورش کرفس", d: "خورش کرفس با گوشت و نعنا", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990556?w=400" },
+            { n: "خورش بامیه", d: "خورش بامیه با گوشت گوساله", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456977?w=400" },
+            { n: "خورش کدو", d: "خورش کدو با گوشت", p: "۲۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990557?w=400" },
+            { n: "خورش آلو اسفناج", d: "خورش اسفناج با آلو بخارا", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456978?w=400" },
+            { n: "خورش هویج", d: "خورش هویج با گوشت و رب انار", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990558?w=400" },
+            { n: "خورش لوبیا", d: "خورش لوبیا سبز با گوشت", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456979?w=400" },
+            { n: "زرشک پلو با مرغ", d: "ران مرغ زعفرانی با زرشک", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
+            { n: "باقالی پلو با ماهیچه", d: "ماهیچه گوسفندی با باقالی پلو", p: "۴۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265950?w=400" },
+            { n: "لوبیا پلو", d: "لوبیا پلو با گوشت چرخ‌کرده", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456980?w=400" },
+            { n: "عدس پلو", d: "عدس پلو با گوشت و کشمش", p: "۲۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592180-85f173990559?w=400" },
+            { n: "شیرین پلو", d: "شیرین پلو با مرغ و خلال پرتقال", p: "۲۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7370?w=400" },
+            { n: "سبزی پلو با ماهی", d: "سبزی پلو با ماهی قزل‌آلا", p: "۳۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a3?w=400" },
+            { n: "کلم پلو", d: "کلم پلو با گوشت چرخ‌کرده", p: "۲۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456981?w=400" },
+            { n: "هویج پلو", d: "هویج پلو با مرغ", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7371?w=400" },
+            { n: "آلبالو پلو", d: "آلبالو پلو با مرغ", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7372?w=400" },
+            { n: "چلو مرغ زعفرانی", d: "ران مرغ زعفرانی با برنج و کره", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?w=400" },
+            { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+            { n: "آش دوغ", d: "آش دوغ آذربایجان با سبزی", p: "۱۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ace?w=400" },
+            { n: "آش شله قلمکار", d: "آش شله قلمکار با حبوبات", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744acf?w=400" },
+            { n: "آش انار", d: "آش انار با رب انار و گوشت", p: "۱۳۵,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad0?w=400" },
+            { n: "آش جو", d: "آش جو با شیر و قارچ", p: "۱۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad1?w=400" },
+            { n: "آش سماق", d: "آش سماق با گوشت و حبوبات", p: "۱۲۵,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad2?w=400" },
+            { n: "حلیم گندم", d: "حلیم گندم با گوشت و دارچین", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1547592166-23ac45744ad3?w=400" },
+            { n: "کله پاچه", d: "کله پاچه کامل با نان", p: "۴۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456982?w=400" },
+            { n: "سیرابی", d: "سیرابی با ادویه مخصوص", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456983?w=400" },
+            { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1574484284002-952d92456984?w=400" },
+            { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400" },
+            { n: "پیتزا مخصوص", d: "پیتزا با گوشت، قارچ و فلفل", p: "۳۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
+            { n: "پیتزا مرغ و قارچ", d: "پیتزا با مرغ ریش‌ریش و قارچ", p: "۳۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400" },
+            { n: "پیتزا مارگاریتا", d: "پیتزا با سس گوجه و ریحان", p: "۲۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400" },
+            { n: "پیتزا سبزیجات", d: "پیتزا با فلفل دلمه و زیتون", p: "۲۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1511689664220-5f0b40a1d2a0?w=400" },
+            { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
+            { n: "چیز برگر", d: "برگر با پنیر گودا", p: "۲۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400" },
+            { n: "ماشروم برگر", d: "برگر با قارچ سرخ شده", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400" },
+            { n: "ساندویچ ژامبون مرغ", d: "ساندویچ ژامبون با سس مخصوص", p: "۱۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1553909489-cd47e0907980?w=400" },
+            { n: "ساندویچ هات داگ", d: "هات داگ با سوسیس گوشت", p: "۱۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1612392062798-3f5c8f9c8a71?w=400" },
+            { n: "ساندویچ فلافل", d: "فلافل تازه با سیب‌زمینی", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1593001874117-c99c800e3eb1?w=400" },
+            { n: "ساندویچ کباب", d: "ساندویچ کباب کوبیده", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1544025162-d76694265951?w=400" },
+            { n: "ساندویچ شنیسل مرغ", d: "شنیسل مرغ سوخاری", p: "۱۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1603360946369-dc9bb6258146?w=400" },
+            { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" },
+            { n: "سیب‌زمینی با پنیر", d: "سیب‌زمینی با سس پنیر", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f878?w=400" },
+            { n: "ناگت مرغ", d: "ناگت مرغ سوخاری", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400" },
+            { n: "قارچ سوخاری", d: "قارچ سوخاری تازه", p: "۱۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
+            { n: "مرغ سوخاری", d: "تکه مرغ سوخاری", p: "۲۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1562967914-608f82629711?w=400" },
+            { n: "پاستا آلفردو", d: "پاستا با سس سفید و مرغ", p: "۲۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400" },
+            { n: "پاستا بولونیز", d: "پاستا با سس گوجه و گوشت", p: "۲۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8de?w=400" },
+            { n: "سالاد شیرازی", d: "خیار، گوجه، پیاز و آبغوره", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" },
+            { n: "سالاد فصل", d: "کاهو، خیار، گوجه و ذرت", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1512621776951-a57141f2eefe?w=400" },
+            { n: "سالاد سزار", d: "کاهو، نان تست و سس سزار", p: "۱۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400" },
+            { n: "سالاد یونانی", d: "خیار، گوجه، زیتون و پنیر فتا", p: "۱۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400" },
+            { n: "ماست و خیار", d: "ماست با خیار و نعنا خشک", p: "۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=400" },
+            { n: "ماست موسیر", d: "ماست با موسیر تازه", p: "۴۵,۰۰۰", i: "https://images.unsplash.com/photo-1571212515416-fef01fc43638?w=400" },
+            { n: "زیتون پرورده", d: "زیتون با گردو و انار", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1512621776951-a57141f2eeff?w=400" },
+            { n: "میرزاقاسمی", d: "بادمجان کبابی با گوجه و سیر", p: "۱۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ec?w=400" },
+            { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ed?w=400" },
+            { n: "کوکو سبزی", d: "کوکو سبزی با نان و ماست", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1626804475297-41609ea263ee?w=400" },
+            { n: "دوغ محلی", d: "دوغ گازدار سنتی", p: "۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" },
+            { n: "نوشابه کوکاکولا", d: "نوشابه مشکی", p: "۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400" },
+            { n: "نوشابه اسپرایت", d: "نوشابه لیمویی", p: "۳۰,۰۰۰", i: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=400" },
+            { n: "لیموناد", d: "لیموناد با نعنا و یخ", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400" },
+            { n: "آب پرتقال", d: "آب پرتقال طبیعی", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400" },
+            { n: "آب هویج", d: "آب هویج با عسل", p: "۵۵,۰۰۰", i: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400" },
+            { n: "شربت آلبالو", d: "شربت آلبالو خنک", p: "۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fe?w=400" },
+            { n: "شربت زعفران", d: "شربت زعفران و گلاب", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2ff?w=400" },
+            { n: "چای سیاه", d: "چای سیاه با نبات", p: "۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400" },
+            { n: "چای سبز", d: "چای سبز با عسل", p: "۲۵,۰۰۰", i: "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?w=400" },
+            { n: "قهوه اسپرسو", d: "قهوه اسپرسو تک شات", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" },
+            { n: "کاپوچینو", d: "قهوه با شیر بخارپز", p: "۱۱۰,۰۰۰", i: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400" },
+            { n: "لاته", d: "قهوه با شیر و فوم", p: "۱۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=400" },
+            { n: "میلک‌شیک شکلاتی", d: "میلک‌شیک با بستنی", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc700?w=400" },
+            { n: "میلک‌شیک وانیلی", d: "میلک‌شیک با خامه", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc701?w=400" },
+            { n: "میلک‌شیک توت‌فرنگی", d: "میلک‌شیک توت‌فرنگی", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1572490122747-3968b75cc702?w=400" },
+            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" },
+            { n: "بستنی شکلاتی", d: "بستنی با سس شکلات", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1563805042-7684c8a4c54c?w=400" },
+            { n: "بستنی وانیلی", d: "بستنی با سس کارامل", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400" },
+            { n: "فالوده شیرازی", d: "فالوده با آبلیمو", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1497034825429-c343d7c6a690?w=400" },
+            { n: "کیک شکلاتی", d: "کیک با سس شکلات", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" },
+            { n: "کیک وانیلی", d: "کیک با خامه", p: "۱۰۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9588?w=400" },
+            { n: "تیرامیسو", d: "دسر ایتالیایی قهوه", p: "۱۵۰,۰۰۰", i: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=400" },
+            { n: "چیز کیک", d: "چیز کیک با توت‌فرنگی", p: "۱۴۰,۰۰۰", i: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400" },
+            { n: "ژله توت‌فرنگی", d: "ژله با خامه", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9589?w=400" },
+            { n: "پودینگ شکلاتی", d: "پودینگ با خامه", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9590?w=400" },
+            { n: "حلوا زرده", d: "حلوا سنتی با زعفران", p: "۹۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9591?w=400" },
+            { n: "شله زرد", d: "شله زرد با دارچین", p: "۷۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9592?w=400" },
+            { n: "فرنی", d: "فرنی با گلاب", p: "۶۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9593?w=400" },
+            { n: "باقلوا", d: "باقلوا با پسته", p: "۱۲۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9594?w=400" },
+            { n: "زولبیا و بامیه", d: "زولبیا و بامیه تازه", p: "۸۰,۰۰۰", i: "https://images.unsplash.com/photo-1578985545062-69928b1d9595?w=400" }
         ];
 
-        // 3. تابع نمایش غذاها
- 
+        // تابع نمایش غذاها (روش بسیار سریع و بدون هنگ)
+        function displayFoods(itemsToShow) {
+            var container = document.getElementById('foodContainer');
+            var html = ''; // استفاده از یک متغیر رشته‌ای برای سرعت بالا
+
+            if (itemsToShow.length === 0) {
+                container.innerHTML = '<div class="no-result" style="display:block;">غذایی با این مشخصات یافت نشد!</div>';
+                return;
+            }
+
+            for (var i = 0; i < itemsToShow.length; i++) {
+                var f = itemsToShow[i];
+                html += '<div class="card">';
+                html += '<img src="' + f.i + '" alt="' + f.n + '" loading="lazy">';
+                html += '<div class="card-content">';
+                html += '<div class="card-title">' + f.n + '</div>';
+                html += '<div class="card-desc">' + f.d + '</div>';
+                html += '<div class="card-footer">';
+                html += '<span class="price">' + f.p + ' تومان<
