@@ -43,19 +43,14 @@
         .add-btn:hover { background: #e63946; }
 
         .not-found { text-align: center; color: #e63946; font-size: 1.2rem; grid-column: 1 / -1; display: none; margin: 30px 0; font-weight: bold; }
-        
-        /* اسکرول‌بار زیبا */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #e63946; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="top-bar">
-            <div id="live-date">در حال بارگذاری تاریخ...</div>
-            <div id="live-clock">در حال بارگذاری ساعت...</div>
+            <div id="live-date">تاریخ</div>
+            <div id="live-clock">ساعت</div>
         </div>
         <div class="logo">
             <h1>رستوران <span>فردین نبی زاده</span></h1>
@@ -79,27 +74,8 @@
     </div>
 
     <script>
-        // --- بخش ساعت و تاریخ زنده ---
-        function updateDateTime() {
-            const now = new Date();
-            
-            // تنظیم تاریخ به شمسی
-            const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
-            const persianDate = now.toLocaleDateString('fa-IR', optionsDate);
-            
-            // تنظیم ساعت
-            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const persianTime = now.toLocaleTimeString('fa-IR', optionsTime);
-
-            document.getElementById('live-date').innerText = "📅 " + persianDate;
-            document.getElementById('live-clock').innerText = "⏰ " + persianTime;
-        }
-        setInterval(updateDateTime, 1000);
-        updateDateTime(); // اجرای اولیه
-
         // --- لیست ۱۰۰ غذای ایرانی و فست‌فود ---
         const foods = [
-            // کباب‌ها (1-10)
             { name: "چلوکباب کوبیده", desc: "دو سیخ کباب کوبیده گوشت گوسفندی با برنج ایرانی", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
             { name: "کباب برگ", desc: "یک سیخ کباب برگ ممتاز با برنج زعفرانی", price: "۴۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" },
             { name: "جوجه کباب زعفرانی", desc: "یک سیخ جوجه کباب زعفرانی با برنج و گوجه کبابی", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
@@ -110,8 +86,6 @@
             { name: "کباب شیشلیک", desc: "شیشلیک گوشت گوسفندی با چربی، برنج و گوجه", price: "۶۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
             { name: "جوجه کباب بدون استخوان", desc: "فیله مرغ کبابی مزه‌دار شده با برنج", price: "۲۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
             { name: "ماهی قزل‌آلا کبابی", desc: "ماهی قزل‌آلا کبابی با سبزیجات و برنج", price: "۴۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
-
-            // خورش‌ها (11-20)
             { name: "قورمه سبزی", desc: "خورش قورمه سبزی مجلسی با گوشت گوساله و لیمو عمانی", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "قیمه نثار", desc: "خورش قیمه با خلال سیب‌زمینی، خلال پرتقال و بادام", price: "۲۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
             { name: "خورش فسنجان", desc: "خورش فسنجان با مرغ، گردوی آسیاب شده و رب انار", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
@@ -122,8 +96,6 @@
             { name: "خورش آلو اسفناج", desc: "خورش اسفناج با آلو بخارا و گوشت", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
             { name: "خورش هویج", desc: "خورش هویج با گوشت و رب انار", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "خورش لوبیا", desc: "خورش لوبیا سبز با گوشت گوساله", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
-
-            // پلوها (21-30)
             { name: "زرشک پلو با مرغ", desc: "ران مرغ زعفرانی همراه با زرشک و برنج", price: "۲۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
             { name: "باقالی پلو با ماهیچه", desc: "ماهیچه گوسفندی نرم با باقالی پلو و زعفران", price: "۴۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
             { name: "لوبیا پلو", desc: "لوبیا پلو با گوشت چرخ‌کرده و سس مخصوص", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
@@ -134,8 +106,6 @@
             { name: "هویج پلو", desc: "هویج پلو با مرغ و خلال هویج", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
             { name: "آلبالو پلو", desc: "آلبالو پلو با مرغ و آلبالوی تازه", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400" },
             { name: "چلو مرغ زعفرانی", desc: "ران مرغ زعفرانی با برنج ایرانی، کره و گوجه", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?w=400" },
-
-            // آش‌ها (31-40)
             { name: "آش رشته", desc: "آش رشته سنتی با کشک، پیاز داغ و نعنا داغ", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
             { name: "آش دوغ", desc: "آش دوغ سنتی آذربایجان با سبزی معطر", price: "۱۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
             { name: "آش شله قلمکار", desc: "آش شله قلمکار با حبوبات و سبزیجات", price: "۱۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
@@ -146,8 +116,6 @@
             { name: "کله پاچه", desc: "کله پاچه کامل با نان و ریحان", price: "۴۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
             { name: "سیرابی", desc: "سیرابی با ادویه مخصوص و نان", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
             { name: "دیزی سنتی", desc: "آبگوشت سنتی با نان سنگک، پیاز و ترشی", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400" },
-
-            // غذای فست فود (41-60)
             { name: "پیتزا پپرونی", desc: "پیتزا با پنیر موزارلا، پپرونی و سس مخصوص", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400" },
             { name: "پیتزا مخصوص", desc: "پیتزا مخصوص با گوشت، قارچ و فلفل دلمه", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
             { name: "پیتزا مرغ و قارچ", desc: "پیتزا با مرغ ریش‌ریش و قارچ تازه", price: "۳۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400" },
@@ -168,8 +136,6 @@
             { name: "مرغ سوخاری", desc: "تکه مرغ سوخاری با سیب‌زمینی", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400" },
             { name: "پاستا آلفردو", desc: "پاستا با سس سفید، مرغ و قارچ", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400" },
             { name: "پاستا بولونیز", desc: "پاستا با سس گوجه و گوشت چرخ‌کرده", price: "۲۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?w=400" },
-
-            // سالادها و پیش‌غذا (61-70)
             { name: "سالاد شیرازی", desc: "خیار، گوجه، پیاز و آبغوره تازه", price: "۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" },
             { name: "سالاد فصل", desc: "کاهو، خیار، گوجه، هویج و ذرت", price: "۷۰,۰۰۰", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" },
             { name: "سالاد سزار", desc: "کاهو، نان تست، پنیر پارمزان و سس سزار", price: "۱۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400" },
@@ -180,8 +146,6 @@
             { name: "میرزاقاسمی", desc: "بادمجان کبابی با گوجه، سیر و تخم‌مرغ", price: "۱۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
             { name: "کشک بادمجان", desc: "بادمجان سرخ شده با کشک، پیاز داغ و نعنا", price: "۱۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
             { name: "کوکو سبزی", desc: "کوکو سبزی تازه با نان، ماست و ترشی", price: "۱۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
-
-            // نوشیدنی‌ها و دسرها (71-100)
             { name: "دوغ محلی", desc: "دوغ گازدار سنتی با نعنا", price: "۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" },
             { name: "نوشابه کوکاکولا", desc: "نوشابه مشکی قوطی یا بطری", price: "۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400" },
             { name: "نوشابه اسپرایت", desc: "نوشابه لیمویی خنک", price: "۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=400" },
@@ -195,4 +159,12 @@
             { name: "قهوه اسپرسو", desc: "قهوه اسپرسو تک شات", price: "۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" },
             { name: "کاپوچینو", desc: "قهوه با شیر بخارپز و فوم شیر", price: "۱۱۰,۰۰۰", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400" },
             { name: "لاته", desc: "قهوه با شیر و طرح روی فوم", price: "۱۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=400" },
-            { name: "میلک‌شیک شکلاتی", desc: "میلک‌شیک شکلاتی با بستنی", price: 
+            { name: "میلک‌شیک شکلاتی", desc: "میلک‌شیک شکلاتی با بستنی", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" },
+            { name: "میلک‌شیک وانیلی", desc: "میلک‌شیک وانیلی با خامه", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" },
+            { name: "میلک‌شیک توت‌فرنگی", desc: "میلک‌شیک توت‌فرنگی تازه", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" },
+            { name: "بستنی سنتی زعفرانی", desc: "بستنی سنتی با خلال بادام و پسته", price: "۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" },
+            { name: "بستنی شکلاتی", desc: "بستنی شکلاتی با سس شکلات", price: "۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1563805042-7684c8a4c54c?w=400" },
+            { name: "بستنی وانیلی", desc: "بستنی وانیلی با سس کارامل", price: "۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400" },
+            { name: "فالوده شیرازی", desc: "فالوده با آبلیمو و شربت آلبالو", price: "۷۰,۰۰۰", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" },
+            { name: "کیک شکلاتی", desc: "کیک شکلاتی خانگی با سس شکلات", price: "۱۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" },
+            { name: "کیک وانیل
