@@ -12,6 +12,10 @@
         header h1 { color: #1d3557; font-size: 1.4rem; }
         header span { color: #e63946; }
         
+        /* استایل عکس بالای سایت */
+        .hero-image-container { width: 100%; max-width: 1200px; margin: 20px auto 0; padding: 0 15px; text-align: center; }
+        .hero-image { width: 100%; max-height: 400px; object-fit: cover; object-position: center; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+
         .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; position: sticky; top: 65px; z-index: 99; text-align: center; }
         .search-container input {
             width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 50px;
@@ -43,18 +47,25 @@
         <h1>رستوران <span>فردین نبی زاده</span></h1>
     </header>
 
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا، مواد اولیه..." onkeyup="filterFoods()">
-        <span class="search-hint">مثلاً بنویسید: کباب، برنج، مرغ، خورش، فسنجان...</span>
+    <!-- عکس ماهی شما -->
+    <div class="hero-image-container">
+        <img src="https://linkgostarbot.ir/bot/download/4878209/6523321285/Screenshot_2026_11_11_14_48_16_913_com_miui_gallery.jpg" alt="ماهی تازه" class="hero-image">
     </div>
 
+    <!-- کادر جستجو -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی غذا، مواد اولیه..." onkeyup="filterFoods()">
+        <span class="search-hint">مثلاً بنویسید: کباب، برنج، مرغ، ماهی...</span>
+    </div>
+
+    <!-- لیست غذاها -->
     <div class="food-grid" id="foodGrid">
         <p class="not-found" id="notFound">متأسفیم! غذایی با این مشخصات پیدا نشد.</p>
     </div>
 
     <script>
-        // لیست کامل غذاهای ایرانی (شامل چلو مرغ و قورمه سبزی)
         const foods = [
+            { name: "ماهی کبابی تازه", desc: "ماهی کپور تازه کبابی شده با سبزیجات و ادویه مخصوص", price: "۴۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
             { name: "چلو مرغ زعفرانی", desc: "ران مرغ زعفرانی با برنج ایرانی، کره و گوجه کبابی", price: "۲۳۰,۰۰۰", img: "https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?w=400" },
             { name: "قورمه سبزی", desc: "خورش قورمه سبزی مجلسی با گوشت گوساله، لیمو عمانی و برنج", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "چلوکباب کوبیده", desc: "دو سیخ کباب کوبیده گوشت گوسفندی با برنج ایرانی", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400" },
@@ -95,7 +106,6 @@
             { name: "کتلت", desc: "کتلت گوشت و سیب‌زمینی با نان و سبزی", price: "۱۷۰,۰۰۰", img: "https://images.unsplash.com/photo-1626804475297-41609ea263eb?w=400" },
             { name: "دلمه برگ مو", desc: "دلمه برگ مو با گوشت چرخ‌کرده و برنج", price: "۱۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
             { name: "دلمه فلفل دلمه‌ای", desc: "فلفل دلمه‌ای پر شده با گوشت و برنج", price: "۲۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
-            { name: "ماهی قزل‌آلا کبابی", desc: "ماهی قزل‌آلا کبابی با سبزیجات", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
             { name: "پیتزا پپرونی", desc: "پیتزا با پنیر موزارلا، پپرونی و سس مخصوص", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400" },
             { name: "پیتزا مخصوص", desc: "پیتزا مخصوص با گوشت، قارچ و فلفل دلمه", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
             { name: "برگر دوبل", desc: "برگر دوبل با گوشت چرخ‌کرده و پنیر چدار", price: "۲۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
@@ -108,16 +118,9 @@
             { name: "بستنی سنتی زعفرانی", desc: "بستنی سنتی با خلال بادام و پسته", price: "۹۰,۰۰۰", img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" }
         ];
 
-        // تابع تمیزکننده متن (برای اینکه حروف عربی و فارسی با هم فرقی نداشته باشن)
         function normalizeText(text) {
             if (!text) return "";
-            return text.toString()
-                .toLowerCase()
-                .replace(/ي/g, 'ی')
-                .replace(/ك/g, 'ک')
-                .replace(/\u200c/g, ' ')
-                .replace(/\s+/g, ' ')
-                .trim();
+            return text.toString().toLowerCase().replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/\u200c/g, ' ').replace(/\s+/g, ' ').trim();
         }
 
         function displayFoods(items) {
@@ -152,7 +155,6 @@
             });
         }
 
-        // تابع جستجوی هوشمند گوگلی
         function filterFoods() {
             let rawInput = document.getElementById('searchInput').value;
             let input = normalizeText(rawInput);
@@ -168,7 +170,6 @@
                 let foodName = normalizeText(food.name);
                 let foodDesc = normalizeText(food.desc);
                 let searchTarget = foodName + " " + foodDesc;
-
                 return searchWords.every(word => searchTarget.includes(word));
             });
 
