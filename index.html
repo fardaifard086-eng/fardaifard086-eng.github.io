@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رستوران فردین نبی زاده</title>
-    <!-- لود فونت زیبای وزیرمتن -->
+    <!-- فونت وزیرمتن -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     
     <style>
         :root {
-            --primary-color: #002c4b; /* رنگ سرمه‌ای سایت شما */
+            --primary-color: #002c4b;
             --secondary-color: #e6b31e;
-            --bg-color: #f4f7f6;
-            --text-dark: #333;
-            --text-light: #777;
+            --bg-color: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
             --card-bg: #ffffff;
             --border-radius: 16px;
         }
@@ -28,19 +28,18 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-dark);
-            /* فاصله از پایین برای اینکه نوار بزرگ پایین روی غذاها نیوفتد */
-            padding-bottom: 100px; 
+            padding-bottom: 90px; /* فضا برای نوار پایین */
         }
 
-        /* هدر سایت */
+        /* هدر */
         header {
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 25px 15px;
-            font-size: 24px;
+            padding: 20px 15px;
+            font-size: 22px;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 50;
@@ -48,7 +47,7 @@
 
         header span { color: var(--secondary-color); }
 
-        /* بخش جستجو */
+        /* نوار جستجو */
         .search-container {
             padding: 20px 15px;
             max-width: 600px;
@@ -60,31 +59,31 @@
             align-items: center;
             background: var(--card-bg);
             border-radius: 50px;
-            padding: 10px 20px;
+            padding: 12px 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
         }
 
         .search-box:focus-within {
             border-color: var(--primary-color);
+            box-shadow: 0 4px 20px rgba(0, 44, 75, 0.15);
         }
 
         .search-box input {
             border: none;
             outline: none;
             width: 100%;
-            font-size: 16px;
-            padding: 8px;
+            font-size: 15px;
+            padding-right: 10px;
             background: transparent;
         }
 
-        .search-box svg { fill: var(--text-light); width: 20px; height: 20px; }
+        .search-box svg { fill: var(--text-light); width: 20px; height: 20px; flex-shrink: 0; }
 
         /* گرید غذاها */
         .food-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
             padding: 0 15px 30px 15px;
             max-width: 1200px;
@@ -96,23 +95,22 @@
             background: var(--card-bg);
             border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease;
             display: flex;
             flex-direction: column;
+            border: 1px solid #f0f0f0;
         }
 
-        .food-card:hover { transform: translateY(-5px); }
+        .food-card:hover { transform: translateY(-4px); }
 
-        /* بخش عکس و جایگزین (Fallback) */
-        .image-container {
+        /* کادر عکس */
+        .image-wrapper {
             width: 100%;
-            height: 200px;
+            aspect-ratio: 4 / 3; /* نسبت تصویر استاندارد برای جلوگیری از به هم ریختگی */
             position: relative;
-            background-color: #eef2f5; /* رنگ پس‌زمینه تا لود شدن عکس */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #eef2f5;
+            overflow: hidden;
         }
 
         .food-image {
@@ -123,43 +121,53 @@
             top: 0;
             left: 0;
             z-index: 2;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        /* آیکون کارد و چنگال برای وقتی عکس لود نمی‌شود */
-        .fallback-icon {
+        .food-image.loaded {
+            opacity: 1; /* فقط وقتی عکس لود شد نشان داده می‌شود */
+        }
+
+        /* آیکون جایگزین (کارد و چنگال) */
+        .fallback-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 1;
-            display: none; /* در حالت عادی مخفی است */
-        }
-        
-        .fallback-icon svg {
-            width: 70px;
-            height: 70px;
-            fill: #b0bec5; /* رنگ خاکستری ملایم */
         }
 
-        /* وقتی عکس ارور بدهد، این کلاس فعال می‌شود */
-        .image-container.show-fallback .food-image { display: none; }
-        .image-container.show-fallback .fallback-icon { display: block; }
+        .fallback-svg svg {
+            width: 60px;
+            height: 60px;
+            fill: #b0bec5;
+        }
 
+        /* محتوای کارت */
         .food-content {
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .food-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--primary-color);
         }
 
         .food-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-light);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             flex-grow: 1;
         }
 
@@ -167,11 +175,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px dashed #ddd;
-            padding-top: 15px;
+            border-top: 1px dashed #e0e0e0;
+            padding-top: 12px;
         }
 
-        .food-price { font-weight: bold; color: #d32f2f; font-size: 16px; }
+        .food-price { 
+            font-weight: bold; 
+            color: #d32f2f; 
+            font-size: 15px; 
+        }
 
         .add-btn {
             background-color: var(--primary-color);
@@ -181,19 +193,20 @@
             border-radius: 8px;
             cursor: pointer;
             font-family: 'Vazirmatn', sans-serif;
+            font-size: 13px;
             transition: background-color 0.2s;
         }
 
         .add-btn:hover { background-color: #001f35; }
 
-        /* نوار پایین بزرگ (شبیه به اپلیکیشن) */
+        /* نوار پایین بزرگ (مشابه طرح درخواستی) */
         .bottom-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background-color: var(--primary-color);
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -201,21 +214,22 @@
             z-index: 100;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
+            border-top: 2px solid var(--secondary-color);
         }
 
         .bottom-bar-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
         }
 
         .cart-icon-wrapper {
             position: relative;
             background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
+            padding: 8px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -224,18 +238,18 @@
 
         .cart-count {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -6px;
+            right: -6px;
             background-color: var(--secondary-color);
             color: var(--primary-color);
             font-weight: bold;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-size: 12px;
+            font-size: 11px;
             border: 2px solid var(--primary-color);
         }
 
@@ -243,33 +257,42 @@
             background-color: var(--secondary-color);
             color: var(--primary-color);
             border: none;
-            padding: 12px 25px;
+            padding: 10px 24px;
             border-radius: 12px;
             font-family: 'Vazirmatn', sans-serif;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             transition: opacity 0.2s;
         }
 
         .checkout-btn:hover { opacity: 0.9; }
 
-        /* پیام موفقیت (Toast) */
+        /* پیام موفقیت */
         .toast {
             position: fixed;
             top: 80px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background-color: #4caf50;
+            background-color: #27ae60;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 24px;
             border-radius: 8px;
             transition: transform 0.3s ease;
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 14px;
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
 
+        /* استایل برای زمانی که غذا پیدا نشد */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -285,72 +308,70 @@
         </div>
     </div>
 
-    <div class="food-grid" id="foodGrid">
-        <!-- کارت‌ها توسط جاوااسکریپت اینجا رندر می‌شوند -->
-    </div>
+    <div class="food-grid" id="foodGrid"></div>
 
-    <!-- نوار پایین بزرگ و ثابت -->
+    <!-- نوار پایین بزرگ -->
     <div class="bottom-bar">
         <div class="bottom-bar-info">
             <div class="cart-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 <span class="cart-count" id="cartCount">۰</span>
             </div>
             <span>سبد خرید</span>
         </div>
-        <button class="checkout-btn" onclick="alert('در نسخه نهایی به صفحه پرداخت متصل می‌شود!')">ادامه سفارش</button>
+        <button class="checkout-btn" onclick="alert('اتصال به درگاه پرداخت در نسخه نهایی!')">ادامه سفارش</button>
     </div>
 
-    <!-- المان پیام موفقیت -->
     <div class="toast" id="toast">به سبد خرید اضافه شد</div>
 
     <script>
-        // 1. تولید داینامیک ۵۰ غذا برای اینکه کد طولانی و سنگین نشود
-        const foodNames = [
-            "چلوکباب کوبیده", "جوجه کباب زعفرانی", "قیمه نثار", "دیزی سنگی", 
-            "خورش قیمه", "خورش قورمه سبزی", "چلو ماهیچه", "کباب برگ", 
-            "کباب چنجه", "باقالی پلو با ماهیچه", "زرشک پلو با مرغ", "میرزا قاسمی", 
-            "کشک بادمجان", "کوکو سبزی", "شامی کباب", "آبگوشت بزباش", 
-            "چلو گوشت", "خورش کرفس", "خورش بادمجان", "قیمه بادمجان"
-        ];
-        
-        // عکس‌های باکیفیت و بهینه از Unsplash
-        const images = [
-            "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?q=80&w=600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop"
+        // 1. دیتای ۵۰ غذای ایرانی
+        const foodsData = [
+            "چلوکباب کوبیده", "جوجه کباب زعفرانی", "قیمه نثار", "دیزی سنگی", "خورش قیمه",
+            "خورش قورمه سبزی", "چلو ماهیچه", "کباب برگ", "کباب چنجه", "باقالی پلو با ماهیچه",
+            "زرشک پلو با مرغ", "میرزا قاسمی", "کشک بادمجان", "کوکو سبزی", "شامی کباب",
+            "آبگوشت بزباش", "چلو گوشت", "خورش کرفس", "خورش بادمجان", "قیمه بادمجان",
+            "چلو خورش فسنجان", "کباب سلطانی", "جوجه کباب بدون استخوان", "خوراک لوبیا", "کتلت",
+            "کوکو سیب زمینی", "دلمه برگ مو", "شله زرد", "حلیم بادمجان", "آش رشته",
+            "آش شله قلمکار", "آش دوغ", "سوپ جو", "سالاد شیرازی", "سالاد فصل",
+            "ماست موسیر", "ماست خیار", "ترشی مخلوط", "نوشابه دوغ", "نوشابه کوکا",
+            "چلو کباب کوبیده ویژه", "ماهیچه گوسفندی", "کباب بختیاری", "جوجه زعفرانی ویژه", "قیمه نثار شیرازی",
+            "خورش انار", "خورش آلو اسفناج", "خورش کدو", "میرزا قاسمی گیلانی", "باقالی پلو با مرغ ویژه"
         ];
 
-        const foods = [];
-        for (let i = 0; i < 50; i++) {
-            foods.push({
-                id: i + 1,
-                title: foodNames[i % foodNames.length] + (i >= 20 ? ` ${i}` : ''), // جلوگیری از تکراری شدن نام‌ها
-                desc: "غذای سنتی ایرانی با بهترین مواد اولیه، طعم بی‌نظیر و پخت روزانه.",
-                price: 150000 + (i * 5000),
-                // برای تست بخش "کارد و چنگال"، به عمد چند لینک را خراب کردم (i % 7 === 0)
-                image: (i % 7 === 0) ? "https://invalid-link.com/image.jpg" : images[i % images.length] 
-            });
-        }
+        // چند لینک عکس معتبر برای تست (عکس‌های دیگر جایگزین می‌شوند)
+        const validImages = [
+            "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?q=80&w=600&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600&auto=format&fit=crop"
+        ];
+
+        // ساخت آرایه ۵۰ تایی غذا
+        const foods = foodsData.map((name, index) => {
+            return {
+                id: index + 1,
+                title: name,
+                desc: "غذای اصیل ایرانی، طبخ شده با بهترین مواد اولیه و روغن سالم.",
+                price: 150000 + (index * 8500),
+                // به صورت رندوم به بعضی‌ها عکس می‌دهیم و بعضی‌ها را خراب می‌گذاریم تا قابلیت Fallback تست شود
+                image: (index % 4 === 0) ? validImages[index % validImages.length] : null 
+            };
+        });
 
         const foodGrid = document.getElementById('foodGrid');
         const searchInput = document.getElementById('searchInput');
         const cartCountEl = document.getElementById('cartCount');
         const toast = document.getElementById('toast');
 
-        // 2. خواندن سبد خرید از حافظه
-        let cart = JSON.parse(localStorage.getItem('fardinRestaurantCart50')) || [];
+        let cart = JSON.parse(localStorage.getItem('fardinRestaurantCartNew')) || [];
         updateCartCount();
 
-        // 3. تابع رندر کارت‌ها در صفحه
+        // 2. تابع رسم کارت‌ها
         function renderFoods(items) {
             foodGrid.innerHTML = ''; 
             
             if(items.length === 0) {
-                foodGrid.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1/-1; color: gray; font-weight:bold;">غذایی با این مشخصات یافت نشد!</p>';
+                foodGrid.innerHTML = '<div class="no-result">غذایی با این مشخصات یافت نشد!</div>';
                 return;
             }
 
@@ -361,18 +382,16 @@
                 card.className = 'food-card';
                 const formattedPrice = food.price.toLocaleString('fa-IR');
 
+                // ساختار HTML کارت (بدون کدهای جاوااسکریپت خطی)
                 card.innerHTML = `
-                    <div class="image-container">
-                        <!-- استفاده از onerror برای فعال‌سازی کارد و چنگال در صورت خرابی لینک -->
-                        <img src="${food.image}" alt="${food.title}" class="food-image" loading="lazy" decoding="async" 
-                             onerror="this.parentElement.classList.add('show-fallback'); this.style.display='none';">
-                        
-                        <!-- این آیکون در حالت عادی مخفی است و اگر عکس خراب شود ظاهر می‌شود -->
-                        <div class="fallback-icon">
+                    <div class="image-wrapper">
+                        <!-- آیکون کارد و چنگال (همیشه در پس‌زمینه وجود دارد) -->
+                        <div class="fallback-svg">
                             <svg viewBox="0 0 24 24">
                                 <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
                             </svg>
                         </div>
+                        ${food.image ? `<img src="${food.image}" alt="${food.title}" class="food-image" loading="lazy" data-id="${food.id}">` : ''}
                     </div>
                     <div class="food-content">
                         <h3 class="food-title">${food.title}</h3>
@@ -387,22 +406,32 @@
             });
 
             foodGrid.appendChild(fragment);
+            
+            // 3. مدیریت استاندارد لود شدن عکس‌ها (جلوگیری از خطا)
+            const images = foodGrid.querySelectorAll('.food-image');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded'); // نمایش عکس با انیمیشن ملایم
+                });
+                img.addEventListener('error', function() {
+                    this.remove(); // اگر عکس خطا داد، تگ img کاملاً حذف می‌شود و آیکون کارد و چنگال زیر آن نمایان می‌شود
+                });
+            });
         }
 
-        // رندر اولیه
         renderFoods(foods);
 
         // 4. جستجو
         searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.trim().toLowerCase();
-            const filteredFoods = foods.filter(food => 
-                food.title.toLowerCase().includes(searchTerm) || 
-                food.desc.toLowerCase().includes(searchTerm)
+            const term = e.target.value.trim().toLowerCase();
+            const filtered = foods.filter(food => 
+                food.title.toLowerCase().includes(term) || 
+                food.desc.toLowerCase().includes(term)
             );
-            renderFoods(filteredFoods);
+            renderFoods(filtered);
         });
 
-        // 5. مدیریت کلیک روی دکمه‌ها
+        // 5. افزودن به سبد خرید (استفاده از Event Delegation برای پرفورمنس بالا)
         foodGrid.addEventListener('click', (e) => {
             if (e.target.classList.contains('add-btn')) {
                 const foodId = parseInt(e.target.getAttribute('data-id'));
@@ -410,29 +439,24 @@
             }
         });
 
-        // 6. افزودن به سبد
         function addToCart(id) {
             const existingItem = cart.find(item => item.id === id);
-            
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
                 const food = foods.find(f => f.id === id);
                 cart.push({ ...food, quantity: 1 });
             }
-
-            localStorage.setItem('fardinRestaurantCart50', JSON.stringify(cart));
+            localStorage.setItem('fardinRestaurantCartNew', JSON.stringify(cart));
             updateCartCount();
             showToast();
         }
 
-        // 7. آپدیت تعداد در نوار پایین
         function updateCartCount() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountEl.textContent = totalItems.toLocaleString('fa-IR');
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountEl.textContent = total.toLocaleString('fa-IR');
         }
 
-        // 8. نمایش پیام
         let toastTimeout;
         function showToast() {
             toast.classList.add('show');
