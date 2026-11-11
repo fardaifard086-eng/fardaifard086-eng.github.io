@@ -11,44 +11,44 @@
     <style>
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #f8fafc;
         }
         /* استایل برای المان گرافیکی بشقاب و کارد و چنگال */
         .plate-placeholder {
-            background-color: #e5e7eb;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 200px;
-            border-radius: 8px 8px 0 0;
+            height: 220px;
+            border-radius: 12px 12px 0 0;
+            border-bottom: 1px solid #e2e8f0;
         }
     </style>
 </head>
-<body class="pb-10">
+<body class="pb-12">
 
-    <!-- هدر سایت (بدون سبد خرید) -->
-    <header class="bg-[#002b49] text-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold">رستوران فردین نبی زاده</h1>
-            <nav class="hidden md:flex space-x-6 space-x-reverse text-sm">
+    <!-- هدر سایت (بزرگ) -->
+    <header class="bg-[#002b49] text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-wide">رستوران فردین نبی زاده</h1>
+            <nav class="hidden md:flex space-x-8 space-x-reverse text-base font-medium">
                 <a href="#" class="hover:text-yellow-400 transition-colors">صفحه اصلی</a>
                 <a href="#" class="hover:text-yellow-400 transition-colors">منوی غذاها</a>
                 <a href="#" class="hover:text-yellow-400 transition-colors">تماس با ما</a>
             </nav>
-            <!-- در موبایل فقط آیکون منو یا تماس نمایش داده می‌شود -->
-            <div class="md:hidden text-sm">
+            <div class="md:hidden text-base font-medium">
                 <a href="#" class="hover:text-yellow-400 transition-colors">تماس با ما</a>
             </div>
         </div>
     </header>
 
     <!-- نوار جستجو -->
-    <div class="max-w-7xl mx-auto px-4 mt-8 mb-6">
-        <div class="relative max-w-2xl mx-auto">
-            <input type="text" placeholder="جستجوی ۲۵ غذای ایرانی..." 
-                class="w-full py-4 px-6 rounded-full border-2 border-red-500 focus:outline-none focus:ring-4 focus:ring-red-200 text-gray-700 shadow-sm text-center">
+    <div class="max-w-7xl mx-auto px-6 mt-10 mb-8">
+        <div class="relative max-w-3xl mx-auto">
+            <input type="text" placeholder="جستجوی ۲۰ غذای ایرانی..." 
+                class="w-full py-4 px-8 rounded-full border-2 border-red-500 focus:outline-none focus:ring-4 focus:ring-red-200 text-gray-700 shadow-sm text-center text-lg">
             <span class="absolute left-6 top-4 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </span>
@@ -56,20 +56,20 @@
     </div>
 
     <!-- کانتینر منوی غذاها -->
-    <div class="max-w-7xl mx-auto px-4">
-        <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <!-- کارت‌های غذا توسط جاوا اسکریپت اینجا تزریق می‌شوند -->
         </div>
     </div>
 
     <script>
-        // آرایه حاوی اطلاعات ۲۵ غذای ایرانی با عکس‌های باکیفیت
+        // آرایه حاوی اطلاعات دقیقاً ۲۰ غذای ایرانی
         const foods = [
-            { name: "چلوکباب کوبیده", desc: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { name: "چلوکباب کوبیده", desc: "دو سیخ کباب کوبیده گوشت گوسفندی، برنج ایرانی، کره", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "جوجه کباب زعفرانی", desc: "یک سیخ جوجه کباب زعفرانی، برنج ایرانی، گوجه کبابی", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "کباب برگ", desc: "یک سیخ کباب برگ ممتاز گوسفندی، برنج ایرانی، کره", price: "۵۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { name: "کباب برگ ممتاز", desc: "یک سیخ کباب برگ ممتاز گوسفندی، برنج ایرانی، کره", price: "۵۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "چلوخورش قورمه سبزی", desc: "خورش قورمه سبزی با گوشت گوسفندی، برنج ایرانی", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "چلوخورش قیمه", desc: "خورش قیمه با گوشت گوسفندی، لپه و سیب‌زمینی", price: "۲۷۰,۰۰۰", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { name: "چلوخورش قیمه", desc: "خورش قیمه با گوشت گوسفندی، لپه و سیب‌زمینی سرخ شده", price: "۲۷۰,۰۰۰", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "زرشک پلو با مرغ", desc: "ران مرغ زعفرانی، برنج ایرانی، زرشک و خلال بادام", price: "۳۰۰,۰۰۰", img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "باقالی پلو با ماهیچه", desc: "ماهیچه گوسفندی، برنج ایرانی، باقالی و شوید", price: "۴۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "چلوخورش فسنجان", desc: "خورش فسنجان با گردو و مرغ، برنج ایرانی", price: "۳۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
@@ -82,52 +82,80 @@
             { name: "میرزاقاسمی", desc: "بادمجان کبابی، گوجه، سیر، تخم‌مرغ و روغن زیتون", price: "۱۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "خورش بادمجان", desc: "خورش بادمجان با گوشت، لپه و برنج ایرانی", price: "۲۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "خورش کرفس", desc: "خورش کرفس با گوشت گوسفندی و برنج ایرانی", price: "۲۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "قیمه نثار", desc: "قیمه نثار قزوینی با مرغ، خلال پرتقال و بادام", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "شیرین پلو", desc: "شیرین پلو با مرغ، خلال پرتقال، زرشک و پسته", price: "۳۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "عدس پلو", desc: "عدس پلو با گوشت چرخ‌کرده، کشمش و خرما", price: "۲۴۰,۰۰۰", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { name: "قیمه نثار قزوینی", desc: "قیمه نثار قزوینی با مرغ، خلال پرتقال و بادام", price: "۳۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { name: "سبزی پلو با ماهی", desc: "سبزی پلو با ماهی قزل‌آلا یا شیر، برنج ایرانی", price: "۴۸۰,۰۰۰", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "کوکو سبزی", desc: "کوکو سبزی سنتی همراه با نان و ماست", price: "۱۶۰,۰۰۰", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "چلو ماهیچه", desc: "یک عدد ماهیچه گوسفندی، برنج ایرانی، کره", price: "۵۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "کباب کوبیده (بدون برنج)", desc: "دو سیخ کباب کوبیده به همراه نان و گوجه کبابی", price: "۲۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { name: "جوجه کباب (بدون برنج)", desc: "یک سیخ جوجه کباب زعفرانی همراه با نان", price: "۲۲۰,۰۰۰", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            { name: "چلو ماهیچه", desc: "یک عدد ماهیچه گوسفندی، برنج ایرانی، کره", price: "۵۵۰,۰۰۰", img: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
         ];
 
-        // SVG مربوط به طرح کارد و چنگال و بشقاب (دقیقاً مشابه عکس شما)
+        // طرح واقعی تر کارد، چنگال و بشقاب
         const plateSvg = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-32 h-32 opacity-50">
-                <circle cx="50" cy="50" r="22" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2"/>
-                <circle cx="50" cy="50" r="16" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
-                <!-- Fork -->
-                <path d="M28 25 L28 50 Q28 55 33 55 L33 75 L36 75 L36 55 Q41 55 41 50 L41 25 L38 25 L38 45 Q38 48 36 48 L36 25 L33 25 L33 48 Q31 48 31 45 L31 25 Z" fill="#9ca3af"/>
-                <!-- Knife -->
-                <path d="M68 25 C68 25 62 38 62 50 C62 55 64 55 67 55 L67 75 L70 75 L70 25 Z" fill="#9ca3af"/>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="w-40 h-40 drop-shadow-md">
+                <defs>
+                    <linearGradient id="metalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#e2e8f0" />
+                        <stop offset="30%" stop-color="#94a3b8" />
+                        <stop offset="50%" stop-color="#ffffff" />
+                        <stop offset="70%" stop-color="#64748b" />
+                        <stop offset="100%" stop-color="#cbd5e1" />
+                    </linearGradient>
+                    <linearGradient id="plateGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="100%" stop-color="#f1f5f9" />
+                    </linearGradient>
+                    <filter id="innerShadow">
+                        <feOffset dx="0" dy="2"/>
+                        <feGaussianBlur stdDeviation="3" result="offset-blur"/>
+                        <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+                        <feFlood flood-color="black" flood-opacity="0.1" result="color"/>
+                        <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+                        <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+                    </filter>
+                </defs>
+
+                <ellipse cx="100" cy="165" rx="60" ry="15" fill="#cbd5e1" opacity="0.4" />
+                <circle cx="100" cy="100" r="70" fill="url(#plateGradient)" stroke="#cbd5e1" stroke-width="2" filter="url(#innerShadow)"/>
+                <circle cx="100" cy="100" r="55" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+                <circle cx="100" cy="100" r="40" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1"/>
+
+                <g transform="translate(40, 40) scale(1.1)">
+                    <rect x="10" y="40" width="6" height="70" rx="3" fill="url(#metalGradient)"/>
+                    <rect x="2" y="10" width="4" height="30" rx="2" fill="url(#metalGradient)"/>
+                    <rect x="8" y="10" width="4" height="30" rx="2" fill="url(#metalGradient)"/>
+                    <rect x="14" y="10" width="4" height="30" rx="2" fill="url(#metalGradient)"/>
+                    <rect x="20" y="10" width="4" height="30" rx="2" fill="url(#metalGradient)"/>
+                    <path d="M 2 35 Q 12 45 22 35 L 22 45 L 2 45 Z" fill="url(#metalGradient)"/>
+                </g>
+
+                <g transform="translate(135, 40) scale(1.1)">
+                    <path d="M 10 10 Q 20 30 20 70 L 12 70 L 12 10 Z" fill="url(#metalGradient)"/>
+                    <rect x="12" y="70" width="8" height="40" rx="3" fill="url(#metalGradient)"/>
+                </g>
             </svg>
         `;
 
         const grid = document.getElementById('food-grid');
 
-        // تابع برای ساخت کارت‌های غذا
+        // حلقه ساخت کارت‌ها
         foods.forEach(food => {
             const card = document.createElement('div');
-            card.className = "bg-white rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300 flex flex-col";
+            card.className = "bg-white rounded-2xl shadow-lg overflow-hidden transition-all transform hover:-translate-y-1 duration-300 flex flex-col border border-gray-100";
             
-            // بررسی اینکه آیا عکس وجود دارد یا باید از طرح بشقاب استفاده کرد
             const imageHtml = food.img 
-                ? `<img src="${food.img}" alt="${food.name}" class="w-full h-48 object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
+                ? `<div class="relative h-56 overflow-hidden">
+                     <img src="${food.img}" alt="${food.name}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
+                   </div>
                    <div class="plate-placeholder hidden">${plateSvg}</div>`
                 : `<div class="plate-placeholder flex">${plateSvg}</div>`;
 
+            // دکمه مشاهده حذف شد و قیمت در مرکز قرار گرفت
             card.innerHTML = `
                 ${imageHtml}
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-[#002b49] mb-2">${food.name}</h3>
-                    <p class="text-sm text-gray-500 mb-4 flex-grow leading-relaxed">${food.desc}</p>
-                    <div class="border-t border-dashed border-gray-300 pt-4 flex items-center justify-between mt-auto">
-                        <span class="text-red-600 font-bold text-lg">${food.price} تومان</span>
-                        <!-- دکمه سبد خرید حذف شد و با دکمه مشاهده جایگزین شد -->
-                        <button class="border-2 border-[#002b49] text-[#002b49] px-5 py-1.5 rounded-full text-sm font-bold hover:bg-[#002b49] hover:text-white transition-colors">
-                            مشاهده
-                        </button>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-black text-[#002b49] mb-3 text-center">${food.name}</h3>
+                    <p class="text-base text-gray-500 mb-6 flex-grow leading-relaxed text-center">${food.desc}</p>
+                    
+                    <div class="border-t-2 border-dashed border-gray-200 pt-5 flex items-center justify-center mt-auto">
+                        <span class="text-red-600 font-extrabold text-2xl">${food.price} <span class="text-base font-normal text-gray-600">تومان</span></span>
                     </div>
                 </div>
             `;
