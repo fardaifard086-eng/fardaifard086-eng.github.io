@@ -5,64 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رستوران فردین نبی زاده</title>
     <style>
-        :root { --primary: #c1121f; --dark: #003049; --light: #f4f6f8; }
+        /* ۱. تنظیمات پایه و رنگ‌بندی اصلی */
+        :root { 
+            --primary: #c1121f; /* قرمز */
+            --dark: #003049;    /* سرمه‌ای */
+            --accent: #ffb703;  /* زرد */
+            --light: #f4f6f8;   /* خاکستری روشن */
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background-color: var(--light); color: #333; padding-bottom: 50px; }
-        
-        /* هدر اصلاح شد تا متن دیده بشه */
-        header { background: var(--dark); color: white; padding: 20px 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: block; }
+        body { background-color: var(--light); color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* ۲. هدر (بالای سایت) */
+        header { background: var(--dark); color: white; padding: 20px 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .logo h1 { font-size: 1.6rem; font-weight: bold; color: #ffffff; margin: 0; }
-        .logo span { color: #ffb703; }
-        
+        .logo span { color: var(--accent); }
+
+        /* ۳. عکس ماهی */
         .hero { width: 100%; max-width: 800px; margin: 20px auto; padding: 0 15px; text-align: center; }
-        .hero img { width: 100%; max-height: 350px; object-fit: contain; background: #fff; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 3px solid white; }
-        
+        .hero img { 
+            width: 100%; 
+            max-height: 350px; 
+            object-fit: contain; 
+            background: #fff; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            border: 3px solid white; 
+        }
+
+        /* ۴. کادر جستجو */
         .search-box { max-width: 600px; margin: 0 auto 30px; padding: 0 15px; position: relative; }
-        .search-box input { width: 100%; padding: 16px 20px; border: none; border-radius: 50px; font-size: 1.1rem; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: 0.3s; }
+        .search-box input { 
+            width: 100%; padding: 16px 20px; border: none; border-radius: 50px; 
+            font-size: 1.1rem; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            transition: 0.3s; 
+        }
         .search-box input:focus { box-shadow: 0 4px 20px rgba(193, 18, 31, 0.3); border: 2px solid var(--primary); }
+
+        /* ۵. شبکه غذاها */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 15px 50px 15px; flex: 1; }
         
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        
+        /* کارت غذا */
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
         
-        /* استایل عکس غذا: اگر لود نشد یک پس زمینه خاکستری با اسم غذا نمایش داده میشه */
-        .card img { width: 100%; height: 180px; object-fit: cover; background: #e0e0e0; color: #555; text-align: center; line-height: 180px; font-size: 1rem; font-weight: bold; }
+        /* تنظیمات عکس غذا (با قابلیت جایگزینی زیبا در صورت لود نشدن) */
+        .img-container { width: 100%; height: 180px; background: #e0e0e0; position: relative; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #999; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
         
         .card-content { padding: 15px; display: flex; flex-direction: column; flex: 1; }
         .card-title { font-size: 1.1rem; font-weight: bold; color: var(--dark); margin-bottom: 8px; }
         .card-desc { font-size: 0.85rem; color: #6c757d; margin-bottom: 15px; line-height: 1.5; flex: 1; }
+        
         .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #dee2e6; padding-top: 15px; }
         .price { font-size: 1rem; font-weight: bold; color: var(--primary); }
         .btn { background: var(--dark); color: white; border: none; padding: 8px 15px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
         .btn:hover { background: var(--primary); }
         
         .no-result { text-align: center; font-size: 1.2rem; color: var(--primary); font-weight: bold; grid-column: 1 / -1; padding: 40px; display: none; }
+
+        /* ۶. فوتر (پایین سایت - طرح جدید) */
+        footer { background: var(--dark); color: white; text-align: center; padding: 30px 20px; margin-top: auto; border-top: 4px solid var(--accent); }
+        .footer-content { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        .footer-title { font-size: 1.2rem; font-weight: bold; color: var(--accent); margin-bottom: 5px; }
+        .footer-info { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; opacity: 0.9; }
+        .footer-info span { display: flex; align-items: center; gap: 5px; }
+        .copyright { font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
     </style>
 </head>
 <body>
 
+    <!-- هدر -->
     <header>
         <div class="logo">
             <h1>رستوران <span>فردین نبی زاده</span></h1>
         </div>
     </header>
 
-    <!-- عکس ماهی -->
+    <!-- عکس ماهی (با لینک قبلی) -->
     <div class="hero">
         <img src="https://linkgostarbot.ir/bot/download/4878209/6523321285/Screenshot_2026_11_11_14_48_16_913_com_miui_gallery.jpg" alt="ماهی تازه">
     </div>
 
     <!-- جستجو -->
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 جستجوی ۲۰ غذای ایرانی..." onkeyup="filterFoods()">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی ۱۵ غذای ایرانی..." onkeyup="filterFoods()">
     </div>
 
     <!-- ظرف غذاها -->
     <div class="grid-container" id="foodContainer"></div>
 
+    <!-- فوتر (پایین سایت) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-title">رستوران فردین نبی زاده</div>
+            <div class="footer-info">
+                <span>📍 تهران، خیابان اصلی</span>
+                <span>📞 ۰۲۱-۱۲۳۴۵۶۷۸</span>
+                <span>⏰ ۱۲ ظهر تا ۱۲ شب</span>
+            </div>
+            <div class="copyright">
+                © ۱۴۰۳ تمامی حقوق برای رستوران فردین نبی زاده محفوظ است.
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // لیست ۲۰ غذا با عکس‌های باز و بدون فیلتر از سرور Pexels
+        // ۱۵ غذای محبوب (کاهش یافته برای سرعت بالا)
         var foods = [
             { n: "چلوکباب کوبیده", d: "دو سیخ کباب کوبیده گوسفندی، برنج ایرانی، کره", p: "۳۵۰,۰۰۰", i: "https://images.pexels.com/photos/1105325/pexels-photo-1105325.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "جوجه کباب زعفرانی", d: "یک سیخ جوجه کباب، برنج، گوجه کبابی", p: "۲۸۰,۰۰۰", i: "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=500" },
@@ -75,15 +123,10 @@
             { n: "کشک بادمجان", d: "بادمجان با کشک و نعنا", p: "۱۵۰,۰۰۰", i: "https://images.pexels.com/photos/5410400/pexels-photo-5410400.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "آش رشته", d: "آش رشته سنتی با کشک و نعنا", p: "۱۲۰,۰۰۰", i: "https://images.pexels.com/photos/5409751/pexels-photo-5409751.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "دیزی سنتی", d: "آبگوشت سنتی با نان سنگک", p: "۲۲۰,۰۰۰", i: "https://images.pexels.com/photos/6210959/pexels-photo-6210959.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "کوکو سبزی", d: "کوکو سبزی با نان و ماست", p: "۱۴۰,۰۰۰", i: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "پیتزا پپرونی", d: "پیتزا با پنیر موزارلا و پپرونی", p: "۳۲۰,۰۰۰", i: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "برگر دوبل", d: "برگر دوبل با پنیر چدار", p: "۲۹۰,۰۰۰", i: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=500" },
             { n: "سیب‌زمینی سرخ‌کرده", d: "سیب‌زمینی سرخ‌کرده با سس", p: "۸۰,۰۰۰", i: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "سالاد شیرازی", d: "خیار، گوجه، پیاز و آبغوره", p: "۶۰,۰۰۰", i: "https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "دوغ محلی", d: "دوغ گازدار سنتی", p: "۴۰,۰۰۰", i: "https://images.pexels.com/photos/1187317/pexels-photo-1187317.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "نوشابه کوکاکولا", d: "نوشابه مشکی خنک", p: "۳۰,۰۰۰", i: "https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.pexels.com/photos/1352281/pexels-photo-1352281.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { n: "کیک شکلاتی", d: "کیک با سس شکلات", p: "۱۲۰,۰۰۰", i: "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=500" }
+            { n: "بستنی سنتی", d: "بستنی سنتی زعفرانی", p: "۹۰,۰۰۰", i: "https://images.pexels.com/photos/1352281/pexels-photo-1352281.jpeg?auto=compress&cs=tinysrgb&w=500" }
         ];
 
         function displayFoods(itemsToShow) {
@@ -98,8 +141,11 @@
             for (var i = 0; i < itemsToShow.length; i++) {
                 var f = itemsToShow[i];
                 html += '<div class="card">';
-                // خط زیر: اگر عکس لود نشد، به جای علامت خرابی، پس زمینه خاکستری با اسم غذا نمایش داده میشه
+                // ساخت کانتینر عکس: اگر عکس لود نشد، آیکون بشقاب میاد
+                html += '<div class="img-container">🍽️';
                 html += '<img src="' + f.i + '" alt="' + f.n + '" onerror="this.style.display=\'none\'">';
+                html += '</div>';
+                
                 html += '<div class="card-content">';
                 html += '<div class="card-title">' + f.n + '</div>';
                 html += '<div class="card-desc">' + f.d + '</div>';
